@@ -23,7 +23,7 @@
 					var day = lastUpdated.getUTCDate();
 					var month = lastUpdated.getUTCMonth();
 					var year = lastUpdated.getUTCFullYear();
-					$(dateTagClass).text(`Last updated: ${year}-${month}-${day}`);
+					$(dateTagClass).text(`Last updated: ${day}-${month}-${year}`);
 				}
 				});
 			}
@@ -127,12 +127,12 @@
 						<li>&copy; Ajay Melekamburath</li><li>Template from <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
 					<h6>This website is still under development, more stuff to come!</h6>
-					<div class="last-date"></div>
+					<div class="last-date update-time" ></div>
 				</div>
 			</footer>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></scrip>
+			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.poptrox.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
