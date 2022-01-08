@@ -20,10 +20,11 @@
 				if (repo.name == desiredRepo)
 				{
 					var lastUpdated = new Date(repo.updated_at);
-					var day = lastUpdated.getUTCDate();
-					var month = lastUpdated.getUTCMonth();
-					var year = lastUpdated.getUTCFullYear();
-					$(dateTagClass).text(`Last updated: ${day}-${month}-${year}`);
+					var upDate = lastUpdated.toString();
+					// var day = lastUpdated.getUTCDate();
+					// var month = lastUpdated.getUTCMonth();
+					// var year = lastUpdated.getUTCFullYear();
+					$(dateTagClass).text(`Last updated: ${upDate}`);
 				}
 				});
 			}
@@ -127,8 +128,8 @@
 						<li>&copy; Ajay Melekamburath</li><li>Template from <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
 					<h6>This website is still under development, more stuff to come!</h6>
-					<div class="last-date update-time" ></div>
-				</div>
+					<div class="last-date" style="  font-family: inherit; font-size: 0.7em; color: white;"></div>
+					</div>
 			</footer>
 
 		<!-- Scripts -->
