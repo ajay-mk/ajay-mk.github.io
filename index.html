@@ -20,11 +20,12 @@
 				if (repo.name == desiredRepo)
 				{
 					var lastUpdated = new Date(repo.updated_at);
-					var upDate = lastUpdated.toString();
+					var upDate = lastUpdated.toDateString();
+					var upTime = lastUpdated.toLocaleDateString('en-US');
 					// var day = lastUpdated.getUTCDate();
 					// var month = lastUpdated.getUTCMonth();
 					// var year = lastUpdated.getUTCFullYear();
-					$(dateTagClass).text(`Last updated: ${upDate}`);
+					$(dateTagClass).text(`Last updated: ${upDate}, ${upTime}`);
 				}
 				});
 			}
