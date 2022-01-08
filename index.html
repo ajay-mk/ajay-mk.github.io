@@ -5,6 +5,33 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script>
+			const desiredRepo = "ajay-mk.github.io";
+			const dateTagClass = ".last-date";
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function()
+			{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				let repos = JSON.parse(this.responseText);
+
+				repos.forEach((repo)=>{
+				if (repo.name == desiredRepo)
+				{
+					var lastUpdated = new Date(repo.updated_at);
+					var day = lastUpdated.getUTCDate();
+					var month = lastUpdated.getUTCMonth();
+					var year = lastUpdated.getUTCFullYear();
+					$(dateTagClass).text(`Last updated: ${year}-${month}-${day}`);
+				}
+				});
+			}
+			};
+			xhttp.open("GET", "https://api.github.com/users/ajay-mk/repos", true);
+			xhttp.send();
+		</script>
+
 	</head>
 	<body class="is-preload">
 
@@ -100,11 +127,12 @@
 						<li>&copy; Ajay Melekamburath</li><li>Template from <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
 					<h6>This website is still under development, more stuff to come!</h6>
+					<div class="last-date"></div>
 				</div>
 			</footer>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.min.js"></scrip>
 			<script src="assets/js/jquery.poptrox.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
