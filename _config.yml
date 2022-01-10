@@ -3,7 +3,7 @@ title: 'Ajay Melekamburath'
 tagline: ''
 description: 'A blog based on <a href="https://jekyllrb.com" target="_blank">Jekyll</a>.'
 url: https://ajay-mk.github.io
-baseurl: ''
+baseurl: 'ajay-mk.github.io'
 permalink: pretty
 # About/contact
 author: Ajay
