@@ -1,0 +1,25 @@
+/*Additionally added custom CSS*/
+
+a.social {
+    border-bottom: none;
+}
+
+.button.orcid:hover {
+    border-color: #A6CE39;
+    color: #A6CE39 !important;
+}
+
+.button.gscholar:hover {
+    border-color: #326AC4;
+    color: #326AC4 !important;
+}
+
+.button.github:hover {
+    border-color: #171515;
+    color: #171515 !important;
+}
+
+.button.rg:hover {
+    border-color: #0cb;
+    color: #0cb !important;
+}
