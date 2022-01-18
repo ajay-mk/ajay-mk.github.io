@@ -1,28 +1,162 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>About Ajay | Ajay Melekamburath</title>
+		<title>About | Ajay Melekamburath</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script>
+			const desiredRepo = "ajay-mk.github.io";
+			const dateTagClass = ".last-date";
+			
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function()
+			{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				let repos = JSON.parse(this.responseText);
+			
+				repos.forEach((repo)=>{
+				if (repo.name == desiredRepo)
+				{
+					//var lastUpdated = new Date(repo.updated_at);
+					var lastUpdated = new Date(document.lastModified)
+					var upDate = lastUpdated.toDateString();
+					var upTime = lastUpdated.toLocaleTimeString('en-US');
+					$(dateTagClass).text(`Last updated: ${upDate}, ${upTime}`);
+				}
+				});
+				}
+				};
+				xhttp.open("GET", "https://api.github.com/users/ajay-mk/repos", true);
+				xhttp.send();
+			</script>
+
 	</head>
 	<body class="is-preload">
 
 		<!-- Header -->
-			<header id="header">
+			<header id="header" style="background-position: left 0px;padding-top: 36px;padding-bottom: 24px;">
 				<div class="inner">
 					<a href="#" class="image avatar"><img src="images/avatar.jpg" alt=""/></a>
 					<h3><strong>Hey, I am Ajay</strong></h3>
 					<h4>Chemistry Graduate, Computational Chemist and
 					<a href="https://instagram.com/ajaymk_"> Photographer</a>.</h4>
+					<div class="col-6 col-12-xsmall">
+						<ul style="list-style-type: none">
+							<li><h4><a href="index.html">Home</a></h4></li>
+							<li><h4><a href="">Blog Posts</a></h4></li>
+							<li><h4><a href="">Tools and Tutorials</a></h4></li>
+						</ul>
+					</div>
 				</div>
 			</header>
 
 		<!-- Main -->
 			<div id="main">
+				<!-- One -->
+					<section id="one">
+						<header class="major">
+						</header>
+						<p ></p>Aspiring computational chemist. 
+							Currently a research fellow at <a href="https://faculty.iisertvm.ac.in/swathi" target="_blank">Dr. R. S. Swathi's group. </a>
+							Graduated from the Indian Institute of Science Education and Research Thiruvananthapuram (<a href="https://iisertvm.ac.in" target="_blank">IISER TVM</a>) - Class of '21. 
+							Currently working on modeling non-covalent interactions between carbon nanostructures. 
+							Loves football and takes portraits if you buy me a coffee!</p>
+					</section>
+
+					<section id="ed-profile" style="padding-top: 24px; margin-top: 24px;">
+						<div>
+							<h2>Education and Research Experience</h2>
+							<img src="https://iisertvm.ac.in/assets/images/iiser_logo.png" width="120px" style="float:left; margin: 15px 15px 0 0">
+							<p>Research Fellow at <a href="https://faculty.iisertvm.ac.in/swathi">R. S. Swathi Group</a> <br> <a href="https://iisertvm.ac.in" target="_blank">Indian Institute of Science Education and Research Thiruvananthapuram </a><br> Kerala, India (2021 - Present)</p>
+						</div>
+						<div>
+							<img src="https://iisertvm.ac.in/assets/images/iiser_logo.png" width="120px" style="float:left; margin: 15px 15px 0 0">
+							<p>BS-MS Chemistry <br> <a href="https://iisertvm.ac.in" target="_blank">Indian Institute of Science Education and Research Thiruvananthapuram </a> <br> Kerala, India (2016 - 2021)</p>
+						</div>
+					</section>
+
+					<section id="research-interest" style="padding-top: 24px; margin-top: 24px;">
+						<h2>Research Interests</h2>
+						<div class="row">
+							<div class="col-6 col-12-xsmall">
+								<ul class="alt">
+									<li>High-performance enabled electronic structure methods</li>
+									<li>Development and implementation of efficient quantum chemical models</li>
+								</ul>
+							</div>
+							<div class="col-6 col-12-xsmall">
+								<ul class="alt">
+									<li>Modeling of non-covalent interactions in <br>materials</li>
+									<li>Quantum computing algorithms in quantum chemistry</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+
+					<section id="tools" style="padding-top: 24px; margin-top: 24px;">
+						<h2>Softwares and Languages</h2>
+
+					</section>
+
+					<section id="publications" style="padding-top: 24px; margin-top: 24px;">
+						<h2>Publications</h2>
+							<ol reversed class="alt">
+								<li>
+									<p><strong> In pursuit of accurate interlayer potentials for twisted bilayer graphynes</strong><br>
+										Anto James<sup>*</sup>, Chris John<sup>*</sup>, <u>Ajay Melekamburath</u>, Megha Rajeevan and R. S. Swathi<br>
+										<em>Wiley Interdiscip. Rev. Comput. Mol. Sci. 2021, Accepted Manuscript</em></p>
+								</li>
+								<li>
+									<p><strong> In pursuit of accurate interlayer potentials for twisted bilayer graphynes</strong><br>
+									<u>Ajay Melekamburath</u>, Anto James, Megha Rajeevan, Chris John and R. S. Swathi<br>
+									<em><a href="https://doi.org/10.1039/D1CP03637H" target="_blank">Phys. Chem. Chem. Phys. 2021, 23, 27031-27041</a></em></p>
+								</li>
+							</ol>
+					</section>
+
+					<!-- Follow Buttons -->
+					
+					<section id="follow-buttons" style="padding-top: 24px; margin-top: 24px;">
+						<h4 style="text-align: center;">Follow my work on:</h4>
+						<ul class="actions" style="justify-content: center;">
+							<li><a href="https://github.com/ajay-mk" class="button follow github" target="_blank"><i class=" fab fa-github fa-1-5x"></i></a></li>
+							<li><a href="https://scholar.google.com/citations?hl=en&user=VC-HIpUAAAAJ" class="button follow gscholar" target="_blank"><i class="ai ai-google-scholar ai-1-5x"></i></a></li>
+							<li><a href="https://orcid.org/0000-0002-0079-5443" class="button follow orcid" target="_blank"><i class="ai ai-orcid ai-1-5x"></i></a></li>
+							<li><a href="https://www.researchgate.net/profile/Ajay-M-K" class="button follow rg" target="_blank"><i class=" ai ai-researchgate ai-1-5x"></i></a></li>
+						</ul>
+					</section>
 
 
 
-                </div>
-    </body>
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<ul class="icons">
+						<li><a href="mailto:ajaymk16@iisertvm.ac.in" class="social fas fa-envelope fa-1-5x" target="_blank"></a></li>
+<!--						<li><a href="https://in.linkedin.com/in/iamajaymk" class="social  fab fa-linkedin fa-1-5x" target="_blank"></a></li> -->
+						<li><a href="https://twitter.com/ajaymk_" class="social fab fa-twitter fa-1-5x" target="_blank"><span class="label"></span></a></li>
+						<li><a href="https://github.com/ajay-mk" class="social fab fa-github fa-1-5x" target="_blank"></a></li>
+						<li><a href="https://instagram.com/ajaymk_" class="social fab fa-instagram fa-1-5x" target="_blank"></a></li>
+<!--						<li><a href="https://scholar.google.com/citations?hl=en&user=VC-HIpUAAAAJ" class="social ai ai-google-scholar ai-1-5x" target="_blank"></a></li> -->
+						
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Ajay Melekamburath</li><li>Template from <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+					<h6>This website is still under development, more stuff to come!</h6>
+					<div class="last-date" style="  font-family: inherit; font-size: 0.7em; color: white;"></div>
+					</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
 </html>
