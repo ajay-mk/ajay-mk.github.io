@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import Prompt from '../components/Prompt.astro';
+import PublicationList from '../components/PublicationList.astro';
+import type { Publication } from '../lib/publications';
+import pubs from '../data/publications.json';
+const items = pubs as Publication[];
+---
+<Base title="publications">
+  <Prompt cmd="ls publications/ --sort=date" />
+  <h1 class="page-title">publications</h1>
+  {items.length === 0
+    ? <p>No publications loaded.</p>
+    : <PublicationList items={items} />}
+</Base>

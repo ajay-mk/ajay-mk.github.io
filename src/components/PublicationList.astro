@@ -1,0 +1,41 @@
+---
+import type { Publication } from '../lib/publications';
+import { site } from '../config';
+interface Props { items: Publication[]; }
+const { items } = Astro.props;
+
+// emphasize the owner's surname in author lists
+const lastName = site.name.split(' ').slice(-1)[0];
+function emphasize(author: string) {
+  return author.includes(lastName);
+}
+---
+
+<ol class="pubs">
+  {items.map((p) => (
+    <li>
+      <span class="yr mono">{p.year ?? '—'}</span>
+      <div class="body">
+        <div class="title">{p.title}</div>
+        <div class="authors">
+          {p.authors.map((a, i) => (
+            <>{i > 0 ? ', ' : ''}<span class={emphasize(a) ? 'me' : ''}>{a}</span></>
+          ))}
+        </div>
+        {p.venue && <div class="venue">{p.venue}</div>}
+        {p.doi && <a class="doi mono" href={p.url ?? `https://doi.org/${p.doi}`}>doi:{p.doi}</a>}
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .pubs { list-style: none; }
+  .pubs li { display: flex; gap: 18px; padding: 18px 0; border-top: 1px solid var(--border); }
+  .yr { color: var(--accent); min-width: 48px; padding-top: 2px; font-size: 0.9rem; }
+  .title { color: var(--text-strong); font-weight: 600; }
+  .authors { color: var(--text-muted); font-size: 0.92rem; margin-top: 4px; }
+  .authors .me { color: var(--text); text-decoration: underline; text-decoration-color: var(--accent); }
+  .venue { color: var(--text-muted); font-style: italic; font-size: 0.88rem; margin-top: 4px; }
+  .doi { display: inline-block; margin-top: 6px; font-size: 0.8rem; }
+</style>
