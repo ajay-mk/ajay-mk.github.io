@@ -8,4 +8,4 @@ Personal website — built with [Astro](https://astro.build).
 - `npm test` — unit tests
 
 Publications auto-refresh weekly via GitHub Actions. CV content lives in `src/data/cv.yaml`.
-Blog posts are Markdown in `src/content/blog/`.
+Blog posts are Markdown in `src/content/blog/`; projects are Markdown in `src/content/projects/`.

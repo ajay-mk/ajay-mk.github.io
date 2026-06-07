@@ -17,5 +17,6 @@ export const nav = [
   { href: '/', label: 'home' },
   { href: '/cv', label: 'cv' },
   { href: '/publications', label: 'publications' },
+  { href: '/projects', label: 'projects' },
   { href: '/blog', label: 'blog' },
 ];
