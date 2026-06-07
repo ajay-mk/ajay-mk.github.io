@@ -1,0 +1,33 @@
+experience:
+  section: experience
+  items:
+    - role: PhD Student, Computational Chemistry
+      org: Valeev Group · Virginia Tech
+      location: Blacksburg, VA
+      when: 2022 — present
+      details:
+        - Automated implementations of many-body electronic structure methods.
+        - Higher-order coupled cluster methods.
+    - role: Junior Research Fellow
+      org: R. S. Swathi Group · IISER Thiruvananthapuram
+      location: Kerala, India
+      when: 2021 — 2022
+education:
+  section: education
+  items:
+    - role: BS-MS, Chemistry
+      org: IISER Thiruvananthapuram
+      location: Kerala, India
+      when: 2016 — 2021
+      details:
+        - "Supervisor: Dr. R. S. Swathi"
+skills:
+  section: skills
+  items:
+    - role: Languages & Tools
+      details:
+        - C++
+        - Python
+        - HPC
+        - Git
+        - Quantum Chemistry
