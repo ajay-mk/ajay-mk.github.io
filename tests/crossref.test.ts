@@ -26,6 +26,16 @@ describe('normalizeCrossref', () => {
     });
   });
 
+  it('strips HTML tags and collapses whitespace in title and venue', () => {
+    const pub = normalizeCrossref({
+      title: ['<tt>SeQuant</tt>\n                    framework for tensor algebra'],
+      'container-title': ['J.  Chem.\nPhys.'],
+      DOI: '10.1063/5.0311913',
+    });
+    expect(pub.title).toBe('SeQuant framework for tensor algebra');
+    expect(pub.venue).toBe('J. Chem. Phys.');
+  });
+
   it('handles missing fields without throwing', () => {
     const pub = normalizeCrossref({ DOI: '10.x/y' });
     expect(pub.title).toBe('Untitled');

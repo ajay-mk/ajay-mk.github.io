@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "engines": {
-    "node": ">=20"
+    "node": ">=22.6"
   },
   "scripts": {
     "dev": "astro dev",
@@ -11,15 +11,13 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
-    "fetch:pubs": "node scripts/fetch-publications.mjs"
+    "fetch:pubs": "node --experimental-strip-types scripts/fetch-publications.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
-    "astro": "^6.4.4",
-    "js-yaml": "^4.2.0"
+    "astro": "^6.4.4"
   },
   "devDependencies": {
-    "@types/js-yaml": "^4.0.9",
     "typescript": "^6.0.3",
     "vitest": "^4.1.8"
   }
