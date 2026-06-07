@@ -1,33 +1,83 @@
-experience:
-  section: experience
-  items:
-    - role: PhD Student, Computational Chemistry
-      org: Valeev Group · Virginia Tech
-      location: Blacksburg, VA
-      when: 2022 — present
-      details:
-        - Automated implementations of many-body electronic structure methods.
-        - Higher-order coupled cluster methods.
-    - role: Junior Research Fellow
-      org: R. S. Swathi Group · IISER Thiruvananthapuram
-      location: Kerala, India
-      when: 2021 — 2022
 education:
   section: education
   items:
-    - role: BS-MS, Chemistry
+    - role: PhD in Chemistry
+      org: Virginia Tech
+      location: Blacksburg, VA
+      when: 2022 — Present
+      details:
+        - Computational chemistry and many-body electronic structure methods.
+    - role: Integrated BS-MS
       org: IISER Thiruvananthapuram
       location: Kerala, India
       when: 2016 — 2021
       details:
-        - "Supervisor: Dr. R. S. Swathi"
+        - Major in Chemistry with a minor in Physics.
+experience:
+  section: research experience
+  items:
+    - role: Graduate Student
+      org: Valeev Group · Virginia Tech
+      when: Aug 2022 — Present
+      details:
+        - Investigating the effects of higher-order correlation and relativistic corrections on ground- and excited-state properties.
+        - Automated implementation of general-order coupled-cluster methods for ground and excited states.
+        - "Development of SeQuant: a framework for the symbolic algebra of tensors over scalar and operator fields."
+        - "Development of MPQC4: a parallel distributed-memory electronic structure package built on TiledArray."
+    - role: Research Assistant
+      org: R. S. Swathi Group · IISER Thiruvananthapuram
+      when: Jun 2021 — Jun 2022
+      details:
+        - Development and parametrization of empirical potentials from electronic structure calculations.
+        - Inclusion of many-body, anisotropic, and higher-order dispersion terms in empirical potential formulations.
+    - role: Master's Student
+      org: R. S. Swathi Group · IISER Thiruvananthapuram
+      when: Jul 2020 — Apr 2021
+      details:
+        - Investigation of interlayer interactions in graphyne bilayers.
+        - Development and parametrization of empirical potentials for graphyne bilayers from electronic structure calculations.
+teaching:
+  section: teaching
+  items:
+    - role: Graduate Teaching Assistant
+      org: Department of Chemistry · Virginia Tech
+      when: Aug 2022 — Apr 2023
+      details:
+        - "General Chemistry Lab — delivered weekly presentations, supervised 70+ undergraduates running experiments and writing reports, and gave feedback to develop their scientific writing."
+conferences:
+  section: conferences & talks
+  items:
+    - role: Modern Wavefunction-Based Methods in Electronic Structure Theory Summer School
+      when: 2025 · University of Pisa, Italy
+    - role: SETCA Annual Meeting
+      when: 2025 · University of Memphis, USA
+    - role: American Conference on Theoretical Chemistry (ACTC)
+      when: 2024 · UNC Chapel Hill, USA
+    - role: SETCA Annual Meeting
+      when: 2024 · Virginia Tech, USA
+    - role: Theoretical Chemistry Symposium (TCS)
+      when: 2021 · IISER Kolkata, India
+    - role: DAE Symposium on Current Trends in Theoretical Chemistry (CTTC)
+      when: 2020 · BARC, Mumbai, India
 skills:
   section: skills
   items:
-    - role: Languages & Tools
+    - role: Skills
       details:
-        - C++
+        - Modern C++
         - Python
-        - HPC
+        - Bash
+        - CUDA
+        - Boost
+        - Eigen
+        - CMake
         - Git
-        - Quantum Chemistry
+        - GitHub Actions
+awards:
+  section: awards
+  items:
+    - role: INSPIRE Fellowship
+      org: Department of Science and Technology, India
+      when: 2016 — 2021
+      details:
+        - Innovation in Science Pursuit for Inspired Research.

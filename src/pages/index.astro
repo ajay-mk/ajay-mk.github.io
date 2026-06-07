@@ -14,7 +14,6 @@ const recent = (pubsData as Publication[]).slice(0, 2);
       <Prompt cmd="whoami" />
       <h1>{site.name}</h1>
       <p class="role mono">{site.role}</p>
-      <p class="bio">{site.bio}</p>
       <p class="links mono">
         <a href={site.socials.github}>github</a> ·
         <a href={site.socials.scholar}>scholar</a> ·
@@ -22,6 +21,24 @@ const recent = (pubsData as Publication[]).slice(0, 2);
         {site.email && <>· <a href={`mailto:${site.email}`}>email</a></>}
       </p>
     </div>
+  </section>
+
+  <section class="about">
+    <h2 class="section-marker">## about</h2>
+    <p>
+      Graduate student in the Valeev Group at the Department of Chemistry, Virginia Tech,
+      working on many-body electronic structure methods. My research centers on automating
+      the implementation of general-order coupled-cluster methods and on understanding how
+      higher-order correlation and relativistic corrections shape ground- and excited-state
+      properties.
+    </p>
+    <p>
+      Alongside the science, I build the software that makes it possible — including
+      <a href="https://github.com/ValeevGroup/SeQuant">SeQuant</a>, a framework for symbolic
+      tensor algebra, and MPQC4, a parallel distributed-memory electronic structure package.
+      Earlier, I completed my integrated BS-MS at IISER Thiruvananthapuram, where I worked on
+      empirical interaction potentials for layered materials.
+    </p>
   </section>
 
   {recent.length > 0 && (
@@ -38,8 +55,9 @@ const recent = (pubsData as Publication[]).slice(0, 2);
   .hero img { width: 120px; height: 120px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); }
   .hero h1 { font-size: 2.2rem; margin-top: 6px; }
   .role { color: var(--accent); margin-top: 8px; }
-  .bio { color: var(--text-muted); margin-top: 12px; max-width: 540px; }
   .links { margin-top: 14px; font-size: 0.9rem; }
+  .about { margin-top: 40px; }
+  .about p { color: var(--text-muted); max-width: 640px; margin-bottom: 14px; }
   .recent { margin-top: 40px; }
   @media (max-width: 600px) { .hero { flex-direction: column; align-items: flex-start; } }
 </style>
