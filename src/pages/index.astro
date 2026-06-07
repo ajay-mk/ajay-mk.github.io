@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import PublicationList from '../components/PublicationList.astro';
+import { site } from '../config';
+import type { Publication } from '../lib/publications';
+import pubsData from '../data/publications.json';
+const recent = (pubsData as Publication[]).slice(0, 2);
+---
+<Base>
+  <section class="hero">
+    <img src="/avatar.jpg" alt={site.name} />
+    <div>
+      <h1>{site.name}</h1>
+      <p class="role mono">{site.role}</p>
+      <p class="links mono">
+        <a href={site.socials.github}>github</a> ·
+        <a href={site.socials.scholar}>google scholar</a> ·
+        <a href={site.socials.linkedin}>linkedin</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="about">
+    <h2 class="section-marker">## about</h2>
+    <p>
+      I am a graduate student in the <a href="https://valeevgroup.github.io" target="_blank" rel="noopener">Valeev
+      Group</a> at <a href="https://www.vt.edu" target="_blank" rel="noopener">Virginia Tech</a>, where I work
+      on many-body electronic structure methods. My research
+      focuses on automating the derivation and implementation of general-order coupled-cluster methods,
+      and on understanding how higher-order correlation and relativistic effects shape the ground- and
+      excited-state properties of molecules.
+    </p>
+    <p>
+      I am equal parts scientist and developer: much of my time goes into the tools that make the
+      science possible, including <a href="https://github.com/ValeevGroup/SeQuant" target="_blank" rel="noopener">SeQuant</a>,
+      a framework for symbolic and numerical tensor algebra, and MPQC4, a parallel, distributed-memory
+      electronic structure package built on <a href="https://github.com/ValeevGroup/tiledarray" target="_blank" rel="noopener">TiledArray</a>.
+      I work mostly in modern C++ and Python, with an eye toward high-performance computing. Before
+      Virginia Tech, I earned my integrated BS-MS at <a href="https://www.iisertvm.ac.in" target="_blank" rel="noopener">IISER
+      Thiruvananthapuram</a>, developing empirical interaction potentials for layered materials.
+    </p>
+    <p>
+      Away from the terminal, I am usually out with a camera. You can find some of my
+      <a href="https://instagram.com/ajaymk_" target="_blank" rel="noopener">photography on Instagram</a>.
+    </p>
+  </section>
+
+  {recent.length > 0 && (
+    <section class="recent">
+      <h2 class="section-marker">## recent publications</h2>
+      <PublicationList items={recent} />
+      <p class="mono"><a href="/publications">all publications →</a></p>
+    </section>
+  )}
+</Base>
+
+<style>
+  .hero { display: flex; gap: 32px; align-items: center; padding: 24px 0 12px; }
+  .hero img { width: 120px; height: 120px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); }
+  .hero h1 { font-size: 2.2rem; margin-top: 6px; }
+  .role { color: var(--accent); margin-top: 8px; }
+  .links { margin-top: 14px; font-size: 0.9rem; }
+  .about { margin-top: 40px; }
+  .about p { color: var(--text-muted); margin-bottom: 14px; text-align: justify; }
+  .recent { margin-top: 40px; }
+  @media (max-width: 600px) { .hero { flex-direction: column; align-items: flex-start; } }
+</style>

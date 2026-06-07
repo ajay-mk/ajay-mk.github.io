@@ -1,0 +1,29 @@
+---
+import { site, nav } from '../config';
+import ThemeToggle from './ThemeToggle.astro';
+const { pathname } = Astro.url;
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname.startsWith(href);
+---
+
+<nav>
+  <a class="brand mono" href="/">~/{site.brand}</a>
+  <ul>
+    {nav.map((item) => (
+      <li>
+        <a class={`link mono ${isActive(item.href) ? 'active' : ''}`} href={item.href}>
+          {isActive(item.href) ? '> ' : ''}{item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+  <ThemeToggle />
+</nav>
+
+<style>
+  nav { display: flex; align-items: center; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--border); }
+  .brand { color: var(--accent); font-weight: 700; }
+  ul { list-style: none; display: flex; gap: 22px; margin-left: auto; }
+  .link { color: var(--text-muted); font-size: 0.9rem; }
+  .link.active { color: var(--accent); }
+</style>

@@ -1,0 +1,52 @@
+education:
+  section: education
+  items:
+    - role: PhD in Chemistry
+      org: Virginia Tech
+      location: Blacksburg, VA
+      when: 2022 — Present
+      details:
+        - Computational chemistry and many-body electronic structure methods.
+    - role: Integrated BS-MS
+      org: IISER Thiruvananthapuram
+      location: Kerala, India
+      when: 2016 — 2021
+      details:
+        - Major in Chemistry with a minor in Physics.
+experience:
+  section: research experience
+  items:
+    - role: Graduate Student
+      org: Valeev Group · Virginia Tech
+      when: Aug 2022 — Present
+      details:
+        - Investigating the effects of higher-order correlation and relativistic corrections on ground- and excited-state properties.
+        - Automated implementation of general-order coupled-cluster methods for ground and excited states.
+        - "Development of SeQuant: a framework for the symbolic algebra of tensors over scalar and operator fields."
+        - "Development of MPQC4: a parallel distributed-memory electronic structure package built on TiledArray."
+    - role: Research Assistant
+      org: R. S. Swathi Group · IISER Thiruvananthapuram
+      when: Jun 2021 — Jun 2022
+      details:
+        - Development and parametrization of empirical potentials from electronic structure calculations.
+        - Inclusion of many-body, anisotropic, and higher-order dispersion terms in empirical potential formulations.
+    - role: Master's Student
+      org: R. S. Swathi Group · IISER Thiruvananthapuram
+      when: Jul 2020 — Apr 2021
+      details:
+        - Investigation of interlayer interactions in graphyne bilayers.
+        - Development and parametrization of empirical potentials for graphyne bilayers from electronic structure calculations.
+skills:
+  section: skills
+  items:
+    - role: Skills
+      details:
+        - Modern C++
+        - Python
+        - Bash
+        - CUDA
+        - Boost
+        - Eigen
+        - CMake
+        - Git
+        - GitHub Actions

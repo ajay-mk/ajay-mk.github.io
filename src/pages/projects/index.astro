@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import Prompt from '../../components/Prompt.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Base title="projects">
+  <Prompt cmd="ls projects/" />
+  <h1 class="page-title">projects</h1>
+  {projects.length === 0 ? <p>No projects yet.</p> : (
+    <ul class="projects">
+      {projects.map((p) => (
+        <li>
+          <a href={`/projects/${p.id}/`}>{p.data.title}</a>
+          <div class="meta mono">{p.data.tags.join(' · ')}</div>
+          <p class="desc">{p.data.description}</p>
+        </li>
+      ))}
+    </ul>
+  )}
+</Base>
+
+<style>
+  .projects { list-style: none; }
+  .projects li { padding: 18px 0; border-top: 1px solid var(--border); }
+  .projects a { font-size: 1.15rem; font-weight: 600; color: var(--text-strong); }
+  .projects a:hover { color: var(--accent); }
+  .meta { color: var(--accent); font-size: 0.8rem; margin-top: 4px; }
+  .desc { color: var(--text-muted); margin-top: 6px; }
+</style>

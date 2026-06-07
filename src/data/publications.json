@@ -1,0 +1,72 @@
+[
+  {
+    "title": "SeQuant framework for symbolic and numerical tensor algebra. I. Core capabilities",
+    "authors": [
+      "B. Gaudel",
+      "R. G. Adam",
+      "A. Melekamburath",
+      "C. Masteran",
+      "N. Teke",
+      "A. Besharatnik",
+      "A. Köhn",
+      "E. F. Valeev"
+    ],
+    "year": 2026,
+    "venue": "The Journal of Chemical Physics",
+    "doi": "10.1063/5.0311913",
+    "url": "https://doi.org/10.1063/5.0311913"
+  },
+  {
+    "title": "Adsorption of Aromatic Hydrocarbons on Graphene: From Energy Decomposition to Stable Adsorption Geometries",
+    "authors": [
+      "M. Rajeevan",
+      "A. Melekamburath",
+      "R. S. Swathi"
+    ],
+    "year": 2026,
+    "venue": "Chemistry – An Asian Journal",
+    "doi": "10.1002/asia.70603",
+    "url": "https://doi.org/10.1002/asia.70603"
+  },
+  {
+    "title": "“Best” Iterative Coupled-Cluster Triples Model? More Evidence for 3CC",
+    "authors": [
+      "N. K. Teke",
+      "A. Melekamburath",
+      "B. Gaudel",
+      "E. F. Valeev"
+    ],
+    "year": 2024,
+    "venue": "The Journal of Physical Chemistry A",
+    "doi": "10.1021/acs.jpca.4c04667",
+    "url": "https://doi.org/10.1021/acs.jpca.4c04667"
+  },
+  {
+    "title": "A journey toward the heaven of chemical fidelity of intermolecular force fields",
+    "authors": [
+      "A. James",
+      "C. John",
+      "A. Melekamburath",
+      "M. Rajeevan",
+      "R. S. Swathi"
+    ],
+    "year": 2022,
+    "venue": "WIREs Computational Molecular Science",
+    "doi": "10.1002/wcms.1599",
+    "url": "https://doi.org/10.1002/wcms.1599"
+  },
+  {
+    "title": "In pursuit of accurate interlayer potentials for twisted bilayer graphynes",
+    "authors": [
+      "A. Melekamburath",
+      "A. James",
+      "M. Rajeevan",
+      "C. John",
+      "R. S. Swathi"
+    ],
+    "year": 2021,
+    "venue": "Physical Chemistry Chemical Physics",
+    "doi": "10.1039/d1cp03637h",
+    "url": "https://doi.org/10.1039/d1cp03637h"
+  }
+]

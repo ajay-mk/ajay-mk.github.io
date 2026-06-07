@@ -1,4 +1,11 @@
-## Ajay's Personal Website
+# ajay-mk.github.io
 
-- Website based on Strata by [HTML5 UP](https://html5up.net)
-- Icons from [Font Awesome](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/)
+Personal website — built with [Astro](https://astro.build).
+
+- `npm run dev` — local dev server
+- `npm run build` — production build to `dist/`
+- `npm run fetch:pubs` — refresh `src/data/publications.json` from ORCID + Crossref
+- `npm test` — unit tests
+
+Publications auto-refresh weekly via GitHub Actions. CV content lives in `src/data/cv.yaml`.
+Blog posts are Markdown in `src/content/blog/`; projects are Markdown in `src/content/projects/`.
