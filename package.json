@@ -1,0 +1,23 @@
+{
+  "name": "ajay-mk-github-io",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "test": "vitest run",
+    "fetch:pubs": "node scripts/fetch-publications.mjs"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.18",
+    "astro": "^6.4.4",
+    "js-yaml": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "vitest": "^4.1.8"
+  }
+}
