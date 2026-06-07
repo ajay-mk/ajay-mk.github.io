@@ -1,6 +1,45 @@
 ---
 import Base from '../layouts/Base.astro';
+import Prompt from '../components/Prompt.astro';
+import PublicationList from '../components/PublicationList.astro';
+import { site } from '../config';
+import type { Publication } from '../lib/publications';
+import pubsData from '../data/publications.json';
+const recent = (pubsData as Publication[]).slice(0, 2);
 ---
 <Base>
-  <p>placeholder home</p>
+  <section class="hero">
+    <img src="/avatar.jpg" alt={site.name} />
+    <div>
+      <Prompt cmd="whoami" />
+      <h1>{site.name}</h1>
+      <p class="role mono">{site.role}</p>
+      <p class="bio">{site.bio}</p>
+      <p class="links mono">
+        <a href={site.socials.github}>github</a> ·
+        <a href={site.socials.scholar}>scholar</a> ·
+        <a href={site.socials.orcid}>orcid</a>
+        {site.email && <>· <a href={`mailto:${site.email}`}>email</a></>}
+      </p>
+    </div>
+  </section>
+
+  {recent.length > 0 && (
+    <section class="recent">
+      <h2 class="section-marker">## recent publications</h2>
+      <PublicationList items={recent} />
+      <p class="mono"><a href="/publications">all publications →</a></p>
+    </section>
+  )}
 </Base>
+
+<style>
+  .hero { display: flex; gap: 32px; align-items: center; padding: 24px 0 12px; }
+  .hero img { width: 120px; height: 120px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); }
+  .hero h1 { font-size: 2.2rem; margin-top: 6px; }
+  .role { color: var(--accent); margin-top: 8px; }
+  .bio { color: var(--text-muted); margin-top: 12px; max-width: 540px; }
+  .links { margin-top: 14px; font-size: 0.9rem; }
+  .recent { margin-top: 40px; }
+  @media (max-width: 600px) { .hero { flex-direction: column; align-items: flex-start; } }
+</style>
