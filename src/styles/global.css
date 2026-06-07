@@ -14,6 +14,7 @@
 }
 
 [data-theme='light'] {
+  --accent: #b45309; /* bright amber is unreadable on light; use a darker burnt-amber */
   --bg: #fbfaf7;
   --surface: #f3f0e9;
   --border: #e3ddcf;

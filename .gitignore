@@ -3,3 +3,4 @@ docs/superpowers/
 dist/
 node_modules/
 .astro/
+.playwright-mcp/
