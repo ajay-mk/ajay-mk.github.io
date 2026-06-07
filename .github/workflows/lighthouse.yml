@@ -1,19 +1,89 @@
 name: Lighthouse
+# Manual: comment "/lighthouse" on a PR to run an audit and get the report as a comment.
 on:
-  pull_request:
-  workflow_dispatch:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: lighthouse-${{ github.event.issue.number }}
+  cancel-in-progress: true
 
 jobs:
   lighthouse:
+    # Only on PR comments that start with /lighthouse, from the repo owner/collaborators.
+    if: >-
+      github.event.issue.pull_request &&
+      startsWith(github.event.comment.body, '/lighthouse') &&
+      contains(fromJSON('["OWNER","COLLABORATOR","MEMBER"]'), github.event.comment.author_association)
     runs-on: ubuntu-latest
     steps:
+      - name: Acknowledge the command
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: 'eyes',
+            });
+
       - uses: actions/checkout@v4
+      - name: Check out the PR's head
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr checkout ${{ github.event.issue.number }}
+
       - uses: actions/setup-node@v4
         with: { node-version: 24, cache: npm }
       - run: npm ci
       - run: npm run build
+
       - name: Run Lighthouse CI
+        id: lhci
         uses: treosh/lighthouse-ci-action@v12
         with:
           configPath: ./lighthouserc.json
           uploadArtifacts: true
+
+      - name: Post report as a PR comment
+        uses: actions/github-script@v7
+        env:
+          MANIFEST: ${{ steps.lhci.outputs.manifest }}
+          LINKS: ${{ steps.lhci.outputs.links }}
+        with:
+          script: |
+            const manifest = JSON.parse(process.env.MANIFEST || '[]');
+            const links = JSON.parse(process.env.LINKS || '{}');
+            const runs = manifest.filter((m) => m.isRepresentativeRun);
+            const pct = (v) => (v == null ? '–' : Math.round(v * 100));
+            const dot = (v) => (v >= 0.9 ? '🟢' : v >= 0.5 ? '🟠' : '🔴');
+            const cell = (v) => `${dot(v)} ${pct(v)}`;
+            const rows = runs.map((m) => {
+              const s = m.summary;
+              const path = new URL(m.url).pathname.replace('/index.html', '/') || '/';
+              const link = links[m.url];
+              const name = link ? `[\`${path}\`](${link})` : `\`${path}\``;
+              return `| ${name} | ${cell(s.performance)} | ${cell(s.accessibility)} | ${cell(s['best-practices'])} | ${cell(s.seo)} |`;
+            }).join('\n');
+            const body = [
+              '## 🔦 Lighthouse report',
+              '',
+              `Commit \`${context.sha.slice(0, 7)}\` · scores are 🟢 ≥90 · 🟠 50–89 · 🔴 <50`,
+              '',
+              '| Page | Performance | Accessibility | Best Practices | SEO |',
+              '|---|---|---|---|---|',
+              rows,
+              '',
+              '_Click a page for the full report (links expire in ~7 days). Re-run anytime by commenting `/lighthouse`._',
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
