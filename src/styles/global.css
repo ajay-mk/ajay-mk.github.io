@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --accent: #e3b341;
+  --bg: #0d1117;
+  --surface: #161b22;
+  --border: #21262d;
+  --text: #c9d1d9;
+  --text-strong: #f0f6fc;
+  --text-muted: #8b949e;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --maxw: 820px;
+}
+
+[data-theme='light'] {
+  --bg: #fbfaf7;
+  --surface: #f3f0e9;
+  --border: #e3ddcf;
+  --text: #2a2a2a;
+  --text-strong: #111;
+  --text-muted: #6b6256;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { color-scheme: dark; }
+[data-theme='light'] html { color-scheme: light; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+main { padding: 48px 0 80px; }
+
+.mono { font-family: var(--font-mono); }
+
+.prompt { font-family: var(--font-mono); color: var(--text-muted); font-size: 0.95rem; }
+.prompt b { color: var(--accent); }
+
+h1, h2, h3 { color: var(--text-strong); line-height: 1.2; }
+.page-title { font-family: var(--font-mono); font-size: 1.9rem; margin: 6px 0 32px; }
+.section-marker { font-family: var(--font-mono); color: var(--accent); font-size: 0.95rem; margin: 28px 0 12px; }
+
+.tag {
+  font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent);
+  border: 1px solid var(--border); border-radius: 6px; padding: 4px 9px; display: inline-block;
+}
