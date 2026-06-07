@@ -19,7 +19,7 @@ const isSkills = (id: string) => id === 'skills';
     <section>
       <h2 class="section-marker">## {s.section}</h2>
       {isSkills(s.section)
-        ? <div class="skills">{s.items[0].details?.map((d) => <span class="tag">{d}</span>)}</div>
+        ? <div class="skills">{s.items.flatMap((i) => i.details ?? []).map((d) => <span class="tag">{d}</span>)}</div>
         : <div class="timeline">
             {s.items.map((it) => (
               <div class="item">
