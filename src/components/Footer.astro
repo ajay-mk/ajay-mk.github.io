@@ -1,15 +1,26 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { site } from '../config';
 const year = new Date().getFullYear();
+
+const links = [
+  { href: site.socials.github, icon: 'simple-icons:github', label: 'GitHub' },
+  { href: site.socials.scholar, icon: 'simple-icons:googlescholar', label: 'Google Scholar' },
+  { href: site.socials.orcid, icon: 'simple-icons:orcid', label: 'ORCID' },
+  { href: site.socials.linkedin, icon: 'simple-icons:linkedin', label: 'LinkedIn' },
+  { href: site.socials.instagram, icon: 'simple-icons:instagram', label: 'Instagram' },
+].filter((l) => l.href);
 ---
 
 <footer>
   <ul>
-    <li><a href={site.socials.github}>github</a></li>
-    <li><a href={site.socials.scholar}>scholar</a></li>
-    <li><a href={site.socials.orcid}>orcid</a></li>
-    <li><a href={site.socials.instagram}>instagram</a></li>
-    {site.email && <li><a href={`mailto:${site.email}`}>email</a></li>}
+    {links.map((l) => (
+      <li>
+        <a href={l.href} aria-label={l.label} target="_blank" rel="me noopener">
+          <Icon name={l.icon} />
+        </a>
+      </li>
+    ))}
   </ul>
   <p class="mono">© {year} {site.name}</p>
 </footer>
@@ -17,7 +28,8 @@ const year = new Date().getFullYear();
 <style>
   footer { border-top: 1px solid var(--border); padding: 28px 0; display: flex; align-items: center; gap: 18px; }
   ul { list-style: none; display: flex; gap: 18px; }
-  ul a { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); }
+  ul a { color: var(--text-muted); display: inline-flex; }
   ul a:hover { color: var(--accent); }
+  ul svg { width: 19px; height: 19px; }
   p { margin-left: auto; color: var(--text-muted); font-size: 0.8rem; }
 </style>
