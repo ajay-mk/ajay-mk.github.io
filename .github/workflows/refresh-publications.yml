@@ -1,7 +1,7 @@
 name: Refresh publications
 on:
   schedule:
-    - cron: '0 6 * * 1'   # every Monday 06:00 UTC
+    - cron: '0 6 1 * *'   # 06:00 UTC on the 1st of each month
   workflow_dispatch:
 
 permissions:
@@ -24,7 +24,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add src/data/publications.json
-            git commit -m "chore: weekly publications refresh"
+            git commit -m "chore: monthly publications refresh"
             git push
           else
             echo "no publication changes"
