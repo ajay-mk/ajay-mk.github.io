@@ -1,0 +1,31 @@
+name: Refresh publications
+on:
+  schedule:
+    - cron: '0 6 * * 1'   # every Monday 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: npm }
+      - run: npm ci
+      - run: npm run fetch:pubs
+        env:
+          ORCID_ID: '0000-0002-0079-5443'
+      - name: Commit changes if any
+        run: |
+          if ! git diff --quiet src/data/publications.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add src/data/publications.json
+            git commit -m "chore: weekly publications refresh"
+            git push
+          else
+            echo "no publication changes"
+          fi
