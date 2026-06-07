@@ -1,8 +1,8 @@
 ---
 import type { Publication } from '../lib/publications';
 import { site } from '../config';
-interface Props { items: Publication[]; }
-const { items } = Astro.props;
+interface Props { items: Publication[]; showYear?: boolean; }
+const { items, showYear = true } = Astro.props;
 
 // emphasize the owner's surname in author lists
 const lastName = site.name.split(' ').slice(-1)[0];
@@ -14,7 +14,7 @@ function emphasize(author: string) {
 <ol class="pubs">
   {items.map((p) => (
     <li>
-      <span class="yr mono">{p.year ?? '—'}</span>
+      {showYear && <span class="yr mono">{p.year ?? '—'}</span>}
       <div class="body">
         <div class="title">{p.title}</div>
         <div class="authors">

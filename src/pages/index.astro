@@ -1,6 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import Prompt from '../components/Prompt.astro';
 import PublicationList from '../components/PublicationList.astro';
 import { site } from '../config';
 import type { Publication } from '../lib/publications';
@@ -11,7 +10,6 @@ const recent = (pubsData as Publication[]).slice(0, 2);
   <section class="hero">
     <img src="/avatar.jpg" alt={site.name} />
     <div>
-      <Prompt cmd="whoami" />
       <h1>{site.name}</h1>
       <p class="role mono">{site.role}</p>
       <p class="links mono">

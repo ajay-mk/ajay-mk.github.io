@@ -5,11 +5,29 @@ import PublicationList from '../components/PublicationList.astro';
 import type { Publication } from '../lib/publications';
 import pubs from '../data/publications.json';
 const items = pubs as Publication[];
+
+// group by year, newest first; undated entries last
+const byYear = new Map<number | string, Publication[]>();
+for (const p of items) {
+  const key = p.year ?? '—';
+  (byYear.get(key) ?? byYear.set(key, []).get(key)!).push(p);
+}
+const years = [...byYear.keys()].sort((a, b) => (Number(b) || 0) - (Number(a) || 0));
 ---
 <Base title="publications">
   <Prompt cmd="ls publications/ --sort=date" />
   <h1 class="page-title">publications</h1>
   {items.length === 0
     ? <p>No publications loaded.</p>
-    : <PublicationList items={items} />}
+    : years.map((y) => (
+        <section class="year-group">
+          <h2 class="year mono">{y}</h2>
+          <PublicationList items={byYear.get(y)!} showYear={false} />
+        </section>
+      ))}
 </Base>
+
+<style>
+  .year-group { margin-bottom: 28px; }
+  .year { color: var(--accent); font-family: var(--font-mono); font-size: 1.3rem; margin-bottom: 4px; }
+</style>

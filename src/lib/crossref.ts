@@ -10,8 +10,17 @@ interface CrossrefWork {
   URL?: string;
 }
 
+// "Edward F." -> "E. F.", "Rotti Srinivasamurthy" -> "R. S."
+function initials(given: string): string {
+  return given
+    .split(/[\s.]+/)
+    .filter(Boolean)
+    .map((token) => `${token[0].toUpperCase()}.`)
+    .join(' ');
+}
+
 function formatAuthor(a: CrossrefAuthor): string {
-  if (a.given && a.family) return `${a.given[0]}. ${a.family}`;
+  if (a.given && a.family) return `${initials(a.given)} ${a.family}`;
   return a.family ?? a.name ?? '';
 }
 

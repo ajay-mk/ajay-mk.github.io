@@ -3,13 +3,13 @@
     "title": "SeQuant framework for symbolic and numerical tensor algebra. I. Core capabilities",
     "authors": [
       "B. Gaudel",
-      "R. Adam",
+      "R. G. Adam",
       "A. Melekamburath",
       "C. Masteran",
       "N. Teke",
       "A. Besharatnik",
       "A. Köhn",
-      "E. Valeev"
+      "E. F. Valeev"
     ],
     "year": 2026,
     "venue": "The Journal of Chemical Physics",
@@ -21,7 +21,7 @@
     "authors": [
       "M. Rajeevan",
       "A. Melekamburath",
-      "R. Swathi"
+      "R. S. Swathi"
     ],
     "year": 2026,
     "venue": "Chemistry – An Asian Journal",
@@ -31,10 +31,10 @@
   {
     "title": "“Best” Iterative Coupled-Cluster Triples Model? More Evidence for 3CC",
     "authors": [
-      "N. Teke",
+      "N. K. Teke",
       "A. Melekamburath",
       "B. Gaudel",
-      "E. Valeev"
+      "E. F. Valeev"
     ],
     "year": 2024,
     "venue": "The Journal of Physical Chemistry A",
@@ -48,7 +48,7 @@
       "C. John",
       "A. Melekamburath",
       "M. Rajeevan",
-      "R. Swathi"
+      "R. S. Swathi"
     ],
     "year": 2022,
     "venue": "WIREs Computational Molecular Science",
@@ -62,7 +62,7 @@
       "A. James",
       "M. Rajeevan",
       "C. John",
-      "R. Swathi"
+      "R. S. Swathi"
     ],
     "year": 2021,
     "venue": "Physical Chemistry Chemical Physics",

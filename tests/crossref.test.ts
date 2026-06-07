@@ -26,6 +26,18 @@ describe('normalizeCrossref', () => {
     });
   });
 
+  it('renders an initial for every given-name token (middle names included)', () => {
+    const pub = normalizeCrossref({
+      title: ['x'],
+      author: [
+        { given: 'Edward F.', family: 'Valeev' },
+        { given: 'Rotti Srinivasamurthy', family: 'Swathi' },
+      ],
+      DOI: '10.x/y',
+    });
+    expect(pub.authors).toEqual(['E. F. Valeev', 'R. S. Swathi']);
+  });
+
   it('strips HTML tags and collapses whitespace in title and venue', () => {
     const pub = normalizeCrossref({
       title: ['<tt>SeQuant</tt>\n                    framework for tensor algebra'],
