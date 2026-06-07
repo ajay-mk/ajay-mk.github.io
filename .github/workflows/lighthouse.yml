@@ -32,7 +32,7 @@ jobs:
               content: 'eyes',
             });
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Check out the PR's head
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
