@@ -36,29 +36,6 @@ experience:
       details:
         - Investigation of interlayer interactions in graphyne bilayers.
         - Development and parametrization of empirical potentials for graphyne bilayers from electronic structure calculations.
-teaching:
-  section: teaching
-  items:
-    - role: Graduate Teaching Assistant
-      org: Department of Chemistry · Virginia Tech
-      when: Aug 2022 — Apr 2023
-      details:
-        - "General Chemistry Lab — delivered weekly presentations, supervised 70+ undergraduates running experiments and writing reports, and gave feedback to develop their scientific writing."
-conferences:
-  section: conferences & talks
-  items:
-    - role: Modern Wavefunction-Based Methods in Electronic Structure Theory Summer School
-      when: 2025 · University of Pisa, Italy
-    - role: SETCA Annual Meeting
-      when: 2025 · University of Memphis, USA
-    - role: American Conference on Theoretical Chemistry (ACTC)
-      when: 2024 · UNC Chapel Hill, USA
-    - role: SETCA Annual Meeting
-      when: 2024 · Virginia Tech, USA
-    - role: Theoretical Chemistry Symposium (TCS)
-      when: 2021 · IISER Kolkata, India
-    - role: DAE Symposium on Current Trends in Theoretical Chemistry (CTTC)
-      when: 2020 · BARC, Mumbai, India
 skills:
   section: skills
   items:
@@ -73,11 +50,3 @@ skills:
         - CMake
         - Git
         - GitHub Actions
-awards:
-  section: awards
-  items:
-    - role: INSPIRE Fellowship
-      org: Department of Science and Technology, India
-      when: 2016 — 2021
-      details:
-        - Innovation in Science Pursuit for Inspired Research.
