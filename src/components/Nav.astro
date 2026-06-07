@@ -8,22 +8,50 @@ const isActive = (href: string) =>
 
 <nav>
   <a class="brand mono" href="/">~/{site.brand}</a>
-  <ul>
-    {nav.map((item) => (
-      <li>
-        <a class={`link mono ${isActive(item.href) ? 'active' : ''}`} href={item.href}>
-          {isActive(item.href) ? '> ' : ''}{item.label}
-        </a>
-      </li>
-    ))}
-  </ul>
-  <ThemeToggle />
+  <button id="nav-toggle" class="nav-toggle mono" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">☰</button>
+  <div id="nav-menu" class="menu">
+    <ul>
+      {nav.map((item) => (
+        <li>
+          <a class={`link mono ${isActive(item.href) ? 'active' : ''}`} href={item.href}>
+            {isActive(item.href) ? '> ' : ''}{item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <ThemeToggle />
+  </div>
 </nav>
 
 <style>
   nav { display: flex; align-items: center; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--border); }
   .brand { color: var(--accent); font-weight: 700; }
-  ul { list-style: none; display: flex; gap: 22px; margin-left: auto; }
+  .nav-toggle {
+    display: none; margin-left: auto; cursor: pointer;
+    background: none; border: 1px solid var(--border); color: var(--text-muted);
+    border-radius: 6px; font-size: 1.1rem; line-height: 1; padding: 5px 10px;
+  }
+  .nav-toggle:hover { color: var(--accent); border-color: var(--accent); }
+  .menu { display: flex; align-items: center; gap: 22px; margin-left: auto; }
+  ul { list-style: none; display: flex; gap: 22px; }
   .link { color: var(--text-muted); font-size: 0.9rem; }
   .link.active { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    nav { flex-wrap: wrap; gap: 0; }
+    .nav-toggle { display: inline-flex; }
+    .menu { display: none; width: 100%; flex-direction: column; align-items: flex-start; gap: 16px; margin: 16px 0 0; }
+    .menu.open { display: flex; }
+    ul { flex-direction: column; gap: 16px; }
+  }
 </style>
+
+<script>
+  const btn = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  btn?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(!!open));
+    btn.textContent = open ? '✕' : '☰';
+  });
+</script>
