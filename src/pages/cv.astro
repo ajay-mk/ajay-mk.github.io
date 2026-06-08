@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Prompt from '../components/Prompt.astro';
 import { getCollection } from 'astro:content';
 
-const order = ['education', 'experience', 'skills'];
+const order = ['education', 'experience', 'talks', 'skills'];
 const entries = await getCollection('cv');
 const sections = order
   .map((id) => entries.find((e) => e.id === id)?.data)

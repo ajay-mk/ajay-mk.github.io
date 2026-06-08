@@ -36,6 +36,13 @@ experience:
       details:
         - Investigation of interlayer interactions in graphyne bilayers.
         - Development and parametrization of empirical potentials for graphyne bilayers from electronic structure calculations.
+talks:
+  section: talks & presentations
+  items:
+    - role: "A Practical Route to Unitary Coupled-Cluster: Implementation and Benchmarks with <code>SeQuant</code>"
+      org: '<a href="https://sites.gsu.edu/setca2026/" target="_blank" rel="noopener">Southeast Theoretical Chemistry Association (SETCA)</a> · May 2026'
+      location: Georgia State University, Atlanta, GA
+      when: Contributed talk
 skills:
   section: skills
   items:
