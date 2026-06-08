@@ -25,10 +25,10 @@ const isSkills = (id: string) => id === 'skills';
         : <div class="timeline">
             {s.items.map((it) => (
               <div class="item">
-                <div class="role">{it.role}</div>
-                {it.org && <div class="org">{it.org}</div>}
+                <div class="role" set:html={it.role} />
+                {it.org && <div class="org" set:html={it.org} />}
                 {it.when && <div class="when mono">{it.when}</div>}
-                {it.details && <ul>{it.details.map((d) => <li>{d}</li>)}</ul>}
+                {it.details && <ul>{it.details.map((d) => <li set:html={d} />)}</ul>}
               </div>
             ))}
           </div>}

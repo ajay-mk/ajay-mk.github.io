@@ -2,36 +2,36 @@ education:
   section: education
   items:
     - role: PhD in Chemistry
-      org: Virginia Tech
+      org: '<a href="https://www.vt.edu" target="_blank" rel="noopener">Virginia Tech</a>'
       location: Blacksburg, VA
       when: 2022 — Present
       details:
         - Computational chemistry and many-body electronic structure methods.
     - role: Integrated BS-MS
-      org: IISER Thiruvananthapuram
+      org: '<a href="https://www.iisertvm.ac.in" target="_blank" rel="noopener">IISER Thiruvananthapuram</a>'
       location: Kerala, India
       when: 2016 — 2021
       details:
         - Major in Chemistry with a minor in Physics.
 experience:
-  section: research experience
+  section: experience
   items:
     - role: Graduate Student
-      org: Valeev Group · Virginia Tech
+      org: '<a href="https://valeevgroup.github.io" target="_blank" rel="noopener">Valeev Group</a> · <a href="https://www.vt.edu" target="_blank" rel="noopener">Virginia Tech</a>'
       when: Aug 2022 — Present
       details:
-        - Investigating the effects of higher-order correlation and relativistic corrections on ground- and excited-state properties.
+        - Investigating the effects of higher-order correlation and relativistic corrections on ground and excited state properties.
         - Automated implementation of general-order coupled-cluster methods for ground and excited states.
-        - "Development of SeQuant: a framework for the symbolic algebra of tensors over scalar and operator fields."
-        - "Development of MPQC4: a parallel distributed-memory electronic structure package built on TiledArray."
+        - "Development of <code>SeQuant</code>: a framework for the symbolic algebra of tensors over scalar and operator fields."
+        - "Development of <code>MPQC4</code>: a parallel distributed-memory electronic structure package built on <code>TiledArray</code>."
     - role: Research Assistant
-      org: R. S. Swathi Group · IISER Thiruvananthapuram
+      org: '<a href="https://faculty.iisertvm.ac.in/swathi" target="_blank" rel="noopener">R. S. Swathi Group</a> · <a href="https://www.iisertvm.ac.in" target="_blank" rel="noopener">IISER Thiruvananthapuram</a>'
       when: Jun 2021 — Jun 2022
       details:
         - Development and parametrization of empirical potentials from electronic structure calculations.
         - Inclusion of many-body, anisotropic, and higher-order dispersion terms in empirical potential formulations.
     - role: Master's Student
-      org: R. S. Swathi Group · IISER Thiruvananthapuram
+      org: '<a href="https://faculty.iisertvm.ac.in/swathi" target="_blank" rel="noopener">R. S. Swathi Group</a> · <a href="https://www.iisertvm.ac.in" target="_blank" rel="noopener">IISER Thiruvananthapuram</a>'
       when: Jul 2020 — Apr 2021
       details:
         - Investigation of interlayer interactions in graphyne bilayers.
@@ -42,11 +42,10 @@ skills:
     - role: Skills
       details:
         - Modern C++
+        - CMake
         - Python
-        - Bash
         - CUDA
+        - Bash
         - Boost
         - Eigen
-        - CMake
         - Git
-        - GitHub Actions
