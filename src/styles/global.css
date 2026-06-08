@@ -44,6 +44,14 @@ main { padding: 48px 0 80px; }
 
 .mono { font-family: var(--font-mono); }
 
+code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--border);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
 .prompt { font-family: var(--font-mono); color: var(--text-muted); font-size: 0.95rem; }
 .prompt b { color: var(--accent); }
 

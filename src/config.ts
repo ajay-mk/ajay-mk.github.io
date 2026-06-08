@@ -1,7 +1,7 @@
 export const site = {
   name: 'Ajay Melekamburath',
   brand: 'ajay',
-  role: 'computational chemistry | C++ | high-performance computing',
+  role: 'Computational Chemistry | C++ | High-performance Computing',
   bio: 'Graduate student in the Valeev Group at Virginia Tech, working on many-body electronic structure methods and the scientific software behind them.',
   orcidId: '0000-0002-0079-5443',
   email: '', // optional: set to render a contact link
