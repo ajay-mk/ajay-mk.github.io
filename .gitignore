@@ -5,3 +5,6 @@ node_modules/
 .astro/
 .playwright-mcp/
 .DS_Store
+
+# local design prototype (phase-2 emulator reference)
+.design-mockup/
