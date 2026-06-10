@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Prompt from '../../components/Prompt.astro';
+import { site } from '../../config';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -8,26 +9,26 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 const fmt = (d: Date) => d.toISOString().slice(0, 10);
 ---
 <Base title="blog">
-  <Prompt cmd="ls blog/ --sort=date" />
-  <h1 class="page-title">blog</h1>
-  {posts.length === 0 ? <p>No posts yet.</p> : (
-    <ul class="posts">
+  <Prompt cmd="ls blog/" flag="--sort=date" />
+  {posts.length === 0 ? <p class="ln">No posts yet.</p> : (
+    <div class="entries">
       {posts.map((p) => (
-        <li>
-          <a href={`/blog/${p.id}/`}>{p.data.title}</a>
-          <div class="meta mono">{fmt(p.data.date)} · {p.data.tags.join(', ')}</div>
-          <p class="desc">{p.data.description}</p>
-        </li>
+        <div class="entry">
+          <a class="ti" href={`/blog/${p.id}/`}>{p.data.title}</a>
+          <div class="em">{fmt(p.data.date)} · {p.data.tags.join(', ')}</div>
+          <p class="de">{p.data.description}</p>
+        </div>
       ))}
-    </ul>
+    </div>
   )}
+  <div class="spacer"></div>
+  <p class="ln"><span class="prompt"><span class="u">~/{site.brand}</span> $</span> <span class="cursor"></span></p>
 </Base>
 
 <style>
-  .posts { list-style: none; }
-  .posts li { padding: 18px 0; border-top: 1px solid var(--border); }
-  .posts a { font-size: 1.15rem; font-weight: 600; color: var(--text-strong); }
-  .posts a:hover { color: var(--accent); }
-  .meta { color: var(--text-muted); font-size: 0.8rem; margin-top: 4px; }
-  .desc { color: var(--text-muted); margin-top: 6px; }
+  .entry { padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .entry .ti { color: var(--text-strong); font-size: 1.05rem; }
+  .entry .ti:hover { color: var(--accent); }
+  .entry .em { color: var(--text-muted); font-size: 0.8rem; margin-top: 4px; }
+  .entry .de { color: var(--text-muted); margin-top: 6px; }
 </style>

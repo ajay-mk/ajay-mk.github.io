@@ -1,5 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Prompt from '../../components/Prompt.astro';
+import { site } from '../../config';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -11,21 +13,25 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 ---
 <Base title={project.data.title} description={project.data.description}>
+  <Prompt cmd={`cat ${project.id}.md`} />
   <article>
-    <h1 class="page-title">{project.data.title}</h1>
-    <p class="meta mono">{project.data.tags.join(' · ')}</p>
+    <h1 class="post-title">{project.data.title}</h1>
+    <p class="meta">{project.data.tags.join(' · ')}</p>
     {project.data.link && (
-      <p><a class="repo mono" href={project.data.link}>repo / site ↗</a></p>
+      <p><a class="repo" href={project.data.link}>repo / site ↗</a></p>
     )}
     <div class="prose"><Content /></div>
   </article>
+  <div class="spacer"></div>
+  <p class="ln"><span class="prompt"><span class="u">~/{site.brand}</span> $</span> <span class="cursor"></span></p>
 </Base>
 
 <style>
-  .meta { color: var(--accent); font-size: 0.85rem; margin: -20px 0 14px; }
-  .repo { display: inline-block; margin-bottom: 24px; font-size: 0.9rem; }
+  .post-title { color: var(--text-strong); font-size: 1.4rem; margin: 14px 0 4px; }
+  .meta { color: var(--accent); font-size: 0.85rem; margin: 0 0 12px; }
+  .repo { display: inline-block; margin-bottom: 22px; font-size: 0.85rem; }
   .prose :global(p) { margin: 0 0 16px; }
-  .prose :global(h2) { font-family: var(--font-mono); margin: 28px 0 12px; }
+  .prose :global(h2) { font-family: var(--font-mono); color: var(--accent); margin: 28px 0 12px; }
   .prose :global(blockquote) { border-left: 3px solid var(--border); padding-left: 14px; color: var(--text-muted); font-style: italic; margin: 0 0 16px; }
   .prose :global(pre) { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; overflow-x: auto; margin: 0 0 16px; }
   .prose :global(code) { font-family: var(--font-mono); font-size: 0.88rem; }
