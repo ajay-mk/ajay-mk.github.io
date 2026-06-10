@@ -24,9 +24,9 @@ const fullTitle = title ? `${title} · ${site.name}` : site.name;
     </script>
   </head>
   <body>
-    <div class="container">
+    <div class="terminal">
       <Nav />
-      <main><slot /></main>
+      <main id="session" class="session"><slot /></main>
       <Footer />
     </div>
   </body>

@@ -4,39 +4,25 @@ import ThemeToggle from './ThemeToggle.astro';
 const { pathname } = Astro.url;
 const isActive = (href: string) =>
   href === '/' ? pathname === '/' : pathname.startsWith(href);
+const tab = (href: string) => (href === '/' ? '~/home' : `~${href}`);
 ---
 
-<nav>
-  <a class="brand mono" href="/">~/{site.brand}</a>
-  <div id="nav-menu" class="menu">
-    <ul>
-      {nav.map((item) => (
-        <li>
-          <a class={`link mono ${isActive(item.href) ? 'active' : ''}`} href={item.href}>
-            {isActive(item.href) ? '> ' : ''}{item.label}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </div>
+<div class="titlebar">
+  <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+  <span class="title"><b>~/{site.brand}</b> — zsh — 80×24</span>
   <ThemeToggle />
+</div>
+<nav class="tabs">
+  {nav.map((item) => (
+    <a class={isActive(item.href) ? 'active' : ''} href={item.href}>{tab(item.href)}</a>
+  ))}
 </nav>
 
 <style>
-  nav { display: flex; align-items: center; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--border); }
-  .brand { color: var(--accent); font-weight: 700; }
-  .menu { display: flex; align-items: center; gap: 22px; margin-left: auto; }
-  ul { list-style: none; display: flex; gap: 22px; }
-  .link { color: var(--text-muted); font-size: 0.9rem; }
-  .link.active { color: var(--accent); }
-
-  /* Mobile: deliberate two-row header — brand + theme toggle on top,
-     full-width nav links row below. */
-  @media (max-width: 600px) {
-    nav { flex-wrap: wrap; gap: 0; }
-    .brand { margin-right: auto; }
-    .menu { order: 1; width: 100%; margin: 14px 0 0; }
-    ul { flex: 1; justify-content: space-between; gap: 0; }
-    .link { font-size: 0.82rem; }
+  .titlebar :global(#theme-toggle) {
+    margin-left: 8px; font-size: 0.8rem; line-height: 1; padding: 3px 7px;
+    background: none; border: 1px solid var(--border); color: var(--text-muted);
+    border-radius: 5px; cursor: pointer;
   }
+  .titlebar :global(#theme-toggle:hover) { color: var(--accent); border-color: var(--accent); }
 </style>
