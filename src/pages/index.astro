@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Prompt from '../components/Prompt.astro';
 import PublicationList from '../components/PublicationList.astro';
 import { site } from '../config';
 import type { Publication } from '../lib/publications';
@@ -7,25 +8,28 @@ import pubsData from '../data/publications.json';
 const recent = (pubsData as Publication[]).slice(0, 2);
 ---
 <Base>
-  <section class="hero">
+  <Prompt cmd="whoami" />
+  <div class="who">
     <img src="/avatar.jpg" alt={site.name} />
     <div>
       <h1>{site.name}</h1>
-      <p class="role mono">{site.role}</p>
-      <p class="links mono">
+      <p class="role">{site.role}</p>
+      <p class="soc">
         <a href={site.socials.github}>github</a> ·
         <a href={site.socials.scholar}>google scholar</a> ·
+        <a href={site.socials.orcid}>orcid</a> ·
         <a href={site.socials.linkedin}>linkedin</a>
       </p>
     </div>
-  </section>
+  </div>
 
-  <section class="about">
-    <h2 class="section-marker">## about</h2>
+  <div class="spacer"></div>
+  <Prompt cmd="cat about.md" />
+  <div class="prose">
     <p>
       I am a graduate student in the <a href="https://valeevgroup.github.io" target="_blank" rel="noopener">Valeev
       Group</a> at <a href="https://www.vt.edu" target="_blank" rel="noopener">Virginia Tech</a>, where I work
-      on many-body electronic structure methods. My research primarily focuses on developing higher-order coupled-cluster 
+      on many-body electronic structure methods. My research primarily focuses on developing higher-order coupled-cluster
       methods and their application to ground and excited state properties.
     </p>
     <p>
@@ -38,28 +42,22 @@ const recent = (pubsData as Publication[]).slice(0, 2);
       Thiruvananthapuram</a>, developing empirical interaction potentials for layered materials.
     </p>
     <p>
-      Away from the terminal, I am usually out with a camera. You can find some of my
+      Away from the terminal, I am usually out with a camera — some of my
       <a href="https://instagram.com/ajaymk_" target="_blank" rel="noopener">photography on Instagram</a>.
     </p>
-  </section>
+  </div>
 
   {recent.length > 0 && (
-    <section class="recent">
-      <h2 class="section-marker">## recent publications</h2>
-      <PublicationList items={recent} />
-      <p class="mono"><a href="/publications">all publications →</a></p>
-    </section>
+    <>
+      <div class="spacer"></div>
+      <Prompt cmd="ls publications/" flag="--sort=date | head -2" />
+      <div class="recent">
+        <PublicationList items={recent} />
+        <p class="ln" style="margin-top:10px"><a href="/publications">→ ~/publications</a></p>
+      </div>
+    </>
   )}
-</Base>
 
-<style>
-  .hero { display: flex; gap: 32px; align-items: center; padding: 24px 0 12px; }
-  .hero img { width: 120px; height: 120px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); }
-  .hero h1 { font-size: 2.2rem; margin-top: 6px; }
-  .role { color: var(--accent); margin-top: 8px; }
-  .links { margin-top: 14px; font-size: 0.9rem; }
-  .about { margin-top: 40px; }
-  .about p { color: var(--text-muted); margin-bottom: 14px; text-align: justify; }
-  .recent { margin-top: 40px; }
-  @media (max-width: 600px) { .hero { flex-direction: column; align-items: flex-start; } }
-</style>
+  <div class="spacer"></div>
+  <p class="ln"><span class="prompt"><span class="u">~/{site.brand}</span> $</span> <span class="cursor"></span></p>
+</Base>

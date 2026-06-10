@@ -1,5 +1,6 @@
 ---
-interface Props { cmd: string; }
-const { cmd } = Astro.props;
+import { site } from '../config';
+interface Props { cmd: string; flag?: string; }
+const { cmd, flag } = Astro.props;
 ---
-<p class="prompt"><b>$</b> {cmd}</p>
+<p class="ln"><span class="prompt"><span class="u">~/{site.brand}</span> $</span> <span class="cmd">{cmd}{flag && <span class="flag"> {flag}</span>}</span></p>
