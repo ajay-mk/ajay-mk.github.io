@@ -25,9 +25,53 @@ const fullTitle = title ? `${title} · ${site.name}` : site.name;
   </head>
   <body>
     <div class="terminal">
+      <script is:inline>
+        (() => {
+          const t = document.currentScript.parentElement;
+          const sz = localStorage.getItem('termSize');
+          if (sz && /^\d+x\d+$/.test(sz)) {
+            const [w, h] = sz.split('x');
+            t.style.width = w + 'px';
+            t.style.height = h + 'px';
+          }
+        })();
+      </script>
       <Nav />
-      <main id="session" class="session"><slot /></main>
-      <Footer />
+      <div class="term-scroll">
+        <main id="session" class="session"><slot /></main>
+        <Footer />
+      </div>
     </div>
+    <script is:inline>
+      (() => {
+        const term = document.querySelector('.terminal');
+        const scroll = document.querySelector('.term-scroll');
+        const out = document.getElementById('winsize');
+        if (!term || !scroll || !out) return;
+        // measure one monospace character at the session font size
+        const probe = document.createElement('span');
+        probe.textContent = '0'.repeat(100);
+        probe.style.cssText = 'position:absolute;visibility:hidden;white-space:pre;font-family:var(--font-mono);font-size:14px';
+        document.body.appendChild(probe);
+        const charW = probe.getBoundingClientRect().width / 100;
+        const lineH = 14 * 1.75;
+        probe.remove();
+        // only persist while the user is actively dragging the window's resize
+        // handle, so plain browser-window resizing still uses the responsive default
+        let dragging = false;
+        term.addEventListener('pointerdown', () => { dragging = true; });
+        window.addEventListener('pointerup', () => { dragging = false; });
+        const update = () => {
+          const cols = Math.max(20, Math.round((scroll.clientWidth - 52) / charW));
+          const rows = Math.max(8, Math.round(scroll.clientHeight / lineH));
+          out.textContent = cols + '×' + rows;
+          if (dragging) {
+            localStorage.setItem('termSize', Math.round(term.offsetWidth) + 'x' + Math.round(term.offsetHeight));
+          }
+        };
+        new ResizeObserver(update).observe(term);
+        update();
+      })();
+    </script>
   </body>
 </html>

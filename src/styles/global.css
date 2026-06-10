@@ -49,9 +49,14 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 
 /* ---- terminal window ---- */
 .terminal {
-  max-width: var(--maxw); margin: 40px auto; border: 1px solid var(--border); border-radius: 10px;
-  overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.02) inset; background: var(--bg);
+  width: min(var(--maxw), 92vw); height: min(680px, 84vh); margin: 36px auto;
+  display: flex; flex-direction: column;
+  border: 1px solid var(--border); border-radius: 10px;
+  overflow: hidden; resize: both;
+  min-width: 340px; min-height: 360px; max-width: 96vw; max-height: 92vh;
+  box-shadow: 0 24px 70px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.02) inset; background: var(--bg);
 }
+.term-scroll { flex: 1; overflow-y: auto; min-height: 0; }
 .titlebar { display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; background: var(--surface); border-bottom: 1px solid var(--border); }
 .dot { width: 12px; height: 12px; border-radius: 50%; }
 .dot.r { background: var(--red); } .dot.y { background: var(--yellow); } .dot.g { background: var(--green); }
@@ -82,7 +87,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .who .soc a { color: var(--text-muted); } .who .soc a:hover { color: var(--accent); }
 
 /* prose */
-.prose { color: var(--text); max-width: 76ch; }
+.prose { color: var(--text); }
 .prose p + p { margin-top: 12px; }
 .prose code, code { font-family: var(--font-mono); color: var(--accent); background: rgba(227,144,47,.08); border: 1px solid var(--border); padding: 0 5px; border-radius: 4px; font-size: .92em; }
 
