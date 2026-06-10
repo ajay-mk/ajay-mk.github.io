@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Prompt from '../components/Prompt.astro';
 import PublicationList from '../components/PublicationList.astro';
+import { site } from '../config';
 import type { Publication } from '../lib/publications';
 import pubs from '../data/publications.json';
 const items = pubs as Publication[];
@@ -13,21 +14,31 @@ for (const p of items) {
   (byYear.get(key) ?? byYear.set(key, []).get(key)!).push(p);
 }
 const years = [...byYear.keys()].sort((a, b) => (Number(b) || 0) - (Number(a) || 0));
+
+// running offset so [n] numbering is continuous across year groups
+let offset = 0;
+const groups = years.map((y) => {
+  const groupItems = byYear.get(y)!;
+  const start = offset;
+  offset += groupItems.length;
+  return { y, items: groupItems, start };
+});
 ---
 <Base title="publications">
-  <Prompt cmd="ls publications/ --sort=date" />
-  <h1 class="page-title">publications</h1>
+  <Prompt cmd="ls publications/" flag="--sort=date" />
   {items.length === 0
-    ? <p>No publications loaded.</p>
-    : years.map((y) => (
-        <section class="year-group">
-          <h2 class="year mono">{y}</h2>
-          <PublicationList items={byYear.get(y)!} showYear={false} />
+    ? <p class="ln">No publications loaded.</p>
+    : groups.map((g) => (
+        <section>
+          <p class="yr-head">{g.y}</p>
+          <PublicationList items={g.items} start={g.start} />
         </section>
       ))}
-</Base>
 
-<style>
-  .year-group { margin-bottom: 28px; }
-  .year { color: var(--accent); font-family: var(--font-mono); font-size: 1.3rem; margin-bottom: 4px; }
-</style>
+  <div class="spacer"></div>
+  <Prompt cmd="ls publications/ | wc -l" />
+  <p class="ln" style="color:var(--text-muted)">{items.length}</p>
+
+  <div class="spacer"></div>
+  <p class="ln"><span class="prompt"><span class="u">~/{site.brand}</span> $</span> <span class="cursor"></span></p>
+</Base>
