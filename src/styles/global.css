@@ -75,8 +75,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .prompt .u { color: var(--accent); }
 .cmd { color: var(--text-strong); }
 .flag { color: var(--text-muted); }
-.spacer { height: 18px; }
-.spacer.sm { height: 12px; }
+.spacer { height: 30px; }
+.spacer.sm { height: 16px; }
 
 /* whoami */
 .who { display: flex; gap: 22px; align-items: center; margin: 10px 0 4px; }
