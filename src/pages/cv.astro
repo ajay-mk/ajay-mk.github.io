@@ -12,7 +12,10 @@ const sections = order
 const isSkills = (id: string) => id === 'skills';
 ---
 <Base title="cv">
-  <p class="ln"><span class="prompt"><span class="u">~/{site.brand}</span> $</span> <span class="cmd">cat cv.md</span> <span class="flag"># </span><a href="/cv/Ajay_CV.pdf">download PDF ↗</a></p>
+  <div class="ln cv-cmd">
+    <span><span class="prompt"><span class="u">~/{site.brand}</span> $</span> <span class="cmd">cat cv.md</span></span>
+    <a class="pdf" href="/cv/Ajay_CV.pdf">download PDF ↗</a>
+  </div>
 
   {sections.map((s) => (
     <section>
@@ -33,3 +36,8 @@ const isSkills = (id: string) => id === 'skills';
   <div class="spacer"></div>
   <p class="ln"><span class="prompt"><span class="u">~/{site.brand}</span> $</span> <span class="cursor"></span></p>
 </Base>
+
+<style>
+  .cv-cmd { display: flex; align-items: baseline; gap: 12px; }
+  .cv-cmd .pdf { margin-left: auto; white-space: nowrap; font-size: 0.85rem; }
+</style>
