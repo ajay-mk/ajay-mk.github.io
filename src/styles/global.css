@@ -63,3 +63,8 @@ h1, h2, h3 { color: var(--text-strong); line-height: 1.2; }
   font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent);
   border: 1px solid var(--border); border-radius: 6px; padding: 4px 9px; display: inline-block;
 }
+
+/* Theme toggle icon — reflects the current theme, driven by data-theme
+   (resolved before paint) so it never flashes. \FE0E forces text glyph. */
+#theme-toggle::before { content: '\2600\FE0E'; } /* ☀ light */
+html[data-theme='dark'] #theme-toggle::before { content: '\263E'; } /* ☾ dark */
