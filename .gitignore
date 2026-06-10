@@ -8,3 +8,6 @@ node_modules/
 
 # local design prototype (phase-2 emulator reference)
 .design-mockup/
+
+# local notes (untracked)
+notes/
