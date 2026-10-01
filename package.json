@@ -15,12 +15,12 @@
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
-    "@iconify-json/simple-icons": "^1.2.94",
-    "astro": "^7.2.9",
+    "@iconify-json/simple-icons": "^1.2.98",
+    "astro": "^7.3.5",
     "astro-icon": "^1.2.0"
   },
   "devDependencies": {
     "typescript": "^7.0.2",
-    "vitest": "^4.1.11"
+    "vitest": "^5.0.2"
   }
 }
