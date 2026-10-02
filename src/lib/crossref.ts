@@ -8,6 +8,7 @@ interface CrossrefWork {
   published?: { 'date-parts'?: number[][] };
   DOI?: string;
   URL?: string;
+  abstract?: string;
 }
 
 // "Edward F." -> "E. F.", "Rotti Srinivasamurthy" -> "R. S."
@@ -29,6 +30,11 @@ function clean(s: string): string {
   return s.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
 }
 
+// Abstracts are JATS XML; some start with a <jats:title>Abstract</jats:title> heading.
+function cleanAbstract(s: string): string {
+  return clean(s.replace(/<jats:title>[\s\S]*?<\/jats:title>/g, ''));
+}
+
 export function normalizeCrossref(work: CrossrefWork): Publication {
   const year = work.published?.['date-parts']?.[0]?.[0] ?? null;
   return {
@@ -38,5 +44,6 @@ export function normalizeCrossref(work: CrossrefWork): Publication {
     venue: clean(work['container-title']?.[0] ?? ''),
     doi: work.DOI ? work.DOI.toLowerCase() : null,
     url: work.URL ?? (work.DOI ? `https://doi.org/${work.DOI.toLowerCase()}` : null),
+    ...(work.abstract && { abstract: cleanAbstract(work.abstract) }),
   };
 }

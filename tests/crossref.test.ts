@@ -48,6 +48,14 @@ describe('normalizeCrossref', () => {
     expect(pub.venue).toBe('J. Chem. Phys.');
   });
 
+  it('keeps the abstract as plain text, dropping JATS markup and its heading', () => {
+    const pub = normalizeCrossref({
+      DOI: '10.x/y',
+      abstract: '<jats:title>ABSTRACT</jats:title>\n  <jats:p>\n    The <jats:italic>π–π</jats:italic> interaction\n  energetics.</jats:p>',
+    });
+    expect(pub.abstract).toBe('The π–π interaction energetics.');
+  });
+
   it('handles missing fields without throwing', () => {
     const pub = normalizeCrossref({ DOI: '10.x/y' });
     expect(pub.title).toBe('Untitled');
