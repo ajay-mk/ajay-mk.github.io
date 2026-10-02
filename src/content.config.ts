@@ -9,6 +9,7 @@ const cv = defineCollection({
       role: z.string(),
       org: z.string().optional(),
       location: z.string().optional(),
+      advisor: z.string().optional(),
       when: z.string().optional(),
       details: z.array(z.string()).optional(),
     })),

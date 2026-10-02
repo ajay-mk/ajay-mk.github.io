@@ -1,58 +1,98 @@
 education:
   section: education
   items:
-    - role: PhD in Chemistry
+    - role: PhD, Chemistry
       org: '<a href="https://www.vt.edu" target="_blank" rel="noopener">Virginia Tech</a>'
       location: Blacksburg, VA
-      when: 2022 — Present
+      when: 2022 – present
       details:
-        - Computational chemistry and many-body electronic structure methods.
+        - Computational and Theoretical Chemistry
     - role: Integrated BS-MS
       org: '<a href="https://www.iisertvm.ac.in" target="_blank" rel="noopener">IISER Thiruvananthapuram</a>'
       location: Kerala, India
-      when: 2016 — 2021
+      when: 2016 – 2021
       details:
-        - Major in Chemistry with a minor in Physics.
+        - Major in Chemical Sciences, Minor in Physical Sciences
 experience:
-  section: experience
+  section: research experience
   items:
     - role: Graduate Student
-      org: '<a href="https://valeevgroup.github.io" target="_blank" rel="noopener">Valeev Group</a> · <a href="https://www.vt.edu" target="_blank" rel="noopener">Virginia Tech</a>'
-      when: Aug 2022 — Present
+      org: '<a href="https://valeevgroup.github.io" target="_blank" rel="noopener">Valeev Research Group</a>, Virginia Tech'
+      advisor: Prof. Edward F. Valeev
+      when: Aug 2022 – present
       details:
         - Investigating the effects of higher-order correlation and relativistic corrections on ground and excited state properties.
         - Automated implementation of general-order coupled-cluster methods for ground and excited states.
         - "Development of <code>SeQuant</code>: a framework for the symbolic algebra of tensors over scalar and operator fields."
         - "Development of <code>MPQC4</code>: a parallel distributed-memory electronic structure package built on <code>TiledArray</code>."
     - role: Research Assistant
-      org: '<a href="https://faculty.iisertvm.ac.in/swathi" target="_blank" rel="noopener">R. S. Swathi Group</a> · <a href="https://www.iisertvm.ac.in" target="_blank" rel="noopener">IISER Thiruvananthapuram</a>'
-      when: Jun 2021 — Jun 2022
+      org: '<a href="https://faculty.iisertvm.ac.in/swathi" target="_blank" rel="noopener">R. S. Swathi Group</a>, IISER Thiruvananthapuram'
+      advisor: Prof. R. S. Swathi
+      when: Jun 2021 – Jun 2022
       details:
         - Development and parametrization of empirical potentials from electronic structure calculations.
         - Inclusion of many-body, anisotropic, and higher-order dispersion terms in empirical potential formulations.
+        - Funded through the Nano Mission project, Department of Science and Technology, India.
     - role: Master's Student
-      org: '<a href="https://faculty.iisertvm.ac.in/swathi" target="_blank" rel="noopener">R. S. Swathi Group</a> · <a href="https://www.iisertvm.ac.in" target="_blank" rel="noopener">IISER Thiruvananthapuram</a>'
-      when: Jul 2020 — Apr 2021
+      org: '<a href="https://faculty.iisertvm.ac.in/swathi" target="_blank" rel="noopener">R. S. Swathi Group</a>, IISER Thiruvananthapuram'
+      advisor: Prof. R. S. Swathi
+      when: Jul 2020 – Apr 2021
       details:
         - Investigation of interlayer interactions in graphyne bilayers.
+        - Investigation of the effect of anisotropic terms in empirical potential formulations.
         - Development and parametrization of empirical potentials for graphyne bilayers from electronic structure calculations.
 talks:
-  section: talks & presentations
+  section: talks
   items:
     - role: "A Practical Route to Unitary Coupled-Cluster: Implementation and Benchmarks with <code>SeQuant</code>"
-      org: '<a href="https://sites.gsu.edu/setca2026/" target="_blank" rel="noopener">Southeast Theoretical Chemistry Association (SETCA)</a> · May 2026'
-      location: Georgia State University, Atlanta, GA
-      when: Contributed talk
+      org: '<a href="https://sites.gsu.edu/setca2026/" target="_blank" rel="noopener">Southeastern Theoretical Chemistry Association (SETCA)</a>, Georgia State University, Atlanta, GA'
+      when: May 2026
+posters:
+  section: posters
+  items:
+    - role: Modern Wavefunction-Based Methods in Electronic Structure Theory Summer School
+      org: University of Pisa, Italy
+      when: "2025"
+    - role: Southeastern Theoretical Chemistry Association (SETCA)
+      org: University of Memphis, Memphis, TN
+      when: "2025"
+    - role: American Conference on Theoretical Chemistry (ACTC)
+      org: University of North Carolina, Chapel Hill, NC
+      when: "2024"
+    - role: Southeastern Theoretical Chemistry Association (SETCA)
+      org: Virginia Tech, Blacksburg, VA
+      when: "2024"
+    - role: Theoretical Chemistry Symposium (TCS)
+      org: IISER Kolkata, India
+      when: "2021"
+    - role: DAE Symposium on Current Trends in Theoretical Chemistry (CTTC)
+      org: Bhabha Atomic Research Centre, Mumbai, India
+      when: "2020"
+    - role: RSC-IISER Desktop Seminar with PCCP
+      org: Royal Society of Chemistry and IISER Thiruvananthapuram, India
+teaching:
+  section: teaching
+  items:
+    - role: Graduate Teaching Assistant, General Chemistry Lab
+      org: Department of Chemistry, Virginia Tech
+      when: Aug 2022 – Apr 2023
+      details:
+        - Developed and delivered weekly presentations for undergraduate students.
+        - Supervised over 70 students doing experiments and preparing scientific reports, and gave feedback on their writing.
+awards:
+  section: awards
+  items:
+    - role: Innovation in Science Pursuit for Inspired Research (INSPIRE) Fellowship
+      org: Department of Science and Technology, India
+      when: 2016 – 2021
 skills:
   section: skills
   items:
-    - role: Skills
-      details:
-        - Modern C++
-        - CMake
-        - Python
-        - CUDA
-        - Bash
-        - Boost
-        - Eigen
-        - Git
+    - role: Electronic structure
+      details: [Coupled cluster, Equation-of-motion coupled cluster, Unitary coupled cluster, Linear response, Symbolic tensor algebra]
+    - role: Programming
+      details: [C++, Python, Bash, Boost, Eigen]
+    - role: High-performance computing
+      details: [MPI, MADNESS, TiledArray, CUDA, cuTENSOR]
+    - role: Tooling
+      details: [CMake, Git, GitHub Actions]
