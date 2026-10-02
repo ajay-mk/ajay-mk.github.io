@@ -1,41 +1,46 @@
 ---
 import type { Publication } from '../lib/publications';
 import { site } from '../config';
-interface Props { items: Publication[]; showYear?: boolean; }
-const { items, showYear = true } = Astro.props;
+import HoverCard from './HoverCard.astro';
+// `previews` shows the abstract in a hover card (used on the home page).
+interface Props { items: Publication[]; previews?: boolean }
+const { items, previews = false } = Astro.props;
 
 // emphasize the owner's surname in author lists
 const lastName = site.name.split(' ').slice(-1)[0];
-function emphasize(author: string) {
-  return author.includes(lastName);
-}
 ---
 
-<ol class="pubs">
+<div>
   {items.map((p) => (
-    <li>
-      {showYear && <span class="yr mono">{p.year ?? '—'}</span>}
-      <div class="body">
-        <div class="title">{p.title}</div>
-        <div class="authors">
-          {p.authors.map((a, i) => (
-            <>{i > 0 ? ', ' : ''}<span class={emphasize(a) ? 'me' : ''}>{a}</span></>
-          ))}
-        </div>
-        {p.venue && <div class="venue">{p.venue}</div>}
-        {p.doi && <a class="doi mono" href={p.url ?? `https://doi.org/${p.doi}`}>doi:{p.doi}</a>}
+    <div class="entry">
+      <div class="head">
+        <HoverCard class="title" href={p.url ?? (p.doi ? `https://doi.org/${p.doi}` : undefined)}>
+          {p.title}
+          {previews && p.abstract && (
+            <span slot="card">
+              <span class="hc-head">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5M9 13h6M9 17h6" /></svg>
+                {p.venue}
+              </span>
+              <span class="hc-body"><span class="card-abstract">{p.abstract}</span></span>
+              <span class="hc-foot"><span>{p.year}</span>{p.doi && <span>doi:{p.doi}</span>}</span>
+            </span>
+          )}
+        </HoverCard>
+        <div class="when">{p.year ?? '—'}</div>
       </div>
-    </li>
+      <div class="sub">
+        {p.authors.map((a, i) => (
+          <>{i > 0 ? ', ' : ''}<span class={a.includes(lastName) ? 'me' : ''}>{a}</span></>
+        ))}
+      </div>
+      {p.venue && <div class="sub venue">{p.venue}</div>}
+    </div>
   ))}
-</ol>
+</div>
 
 <style>
-  .pubs { list-style: none; }
-  .pubs li { display: flex; gap: 18px; padding: 18px 0; border-top: 1px solid var(--border); }
-  .yr { color: var(--accent); min-width: 48px; padding-top: 2px; font-size: 0.9rem; }
-  .title { color: var(--text-strong); font-weight: 600; }
-  .authors { color: var(--text); font-size: 0.92rem; margin-top: 4px; }
-  .authors .me { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 2px; }
-  .venue { color: var(--text-muted); font-style: italic; font-size: 0.88rem; margin-top: 4px; }
-  .doi { display: inline-block; margin-top: 6px; font-size: 0.8rem; }
+  .me { color: var(--text-strong); font-weight: 500; }
+  .venue { font-style: italic; }
+  .card-abstract { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
 </style>

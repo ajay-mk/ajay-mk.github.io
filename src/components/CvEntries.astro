@@ -1,0 +1,9 @@
+---
+// Rows from cv.yaml. `full` adds advisors and bullet points (CV page).
+import CvEntry, { type Item } from './CvEntry.astro';
+interface Props { items: Item[]; full?: boolean }
+const { items, full = false } = Astro.props;
+---
+<div>
+  {items.map((it) => <CvEntry it={it} full={full} />)}
+</div>

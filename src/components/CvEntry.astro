@@ -1,0 +1,18 @@
+---
+export interface Item { role: string; org?: string; advisor?: string; when?: string; details?: string[] }
+interface Props { it: Item; full?: boolean }
+const { it, full = false } = Astro.props;
+// A single detail (e.g. a degree's field) reads as a subtitle, not a bullet list.
+const subtitle = it.details?.length === 1 ? it.details[0] : undefined;
+---
+<div class="entry">
+  <div class="head"><div class="title" set:html={it.role} /><div class="when">{it.when}</div></div>
+  {subtitle && <div class="field" set:html={subtitle} />}
+  {it.org && <div class="sub" set:html={it.org} />}
+  {full && it.advisor && <div class="sub">Advisor: {it.advisor}</div>}
+  {full && !subtitle && it.details && <ul>{it.details.map((d) => <li set:html={d} />)}</ul>}
+</div>
+
+<style>
+  .field { font-size: 0.92rem; margin-top: 2px; }
+</style>

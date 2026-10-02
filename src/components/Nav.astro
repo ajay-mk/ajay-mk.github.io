@@ -2,41 +2,24 @@
 import { site, nav } from '../config';
 import ThemeToggle from './ThemeToggle.astro';
 const { pathname } = Astro.url;
-const isActive = (href: string) =>
-  href === '/' ? pathname === '/' : pathname.startsWith(href);
 ---
 
 <nav>
-  <a class="brand mono" href="/">~/{site.brand}</a>
-  <div id="nav-menu" class="menu">
-    <ul>
-      {nav.map((item) => (
-        <li>
-          <a class={`link mono ${isActive(item.href) ? 'active' : ''}`} href={item.href}>
-            {isActive(item.href) ? '> ' : ''}{item.label}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </div>
+  <a class="brand" href="/">{site.name}</a>
+  <ul>
+    {nav.map((item) => (
+      <li><a class:list={['link', { active: pathname.startsWith(item.href) }]} href={item.href}>{item.label}</a></li>
+    ))}
+  </ul>
   <ThemeToggle />
 </nav>
 
 <style>
-  nav { display: flex; align-items: center; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--border); }
-  .brand { color: var(--accent); font-weight: 700; }
-  .menu { display: flex; align-items: center; gap: 22px; margin-left: auto; }
-  ul { list-style: none; display: flex; gap: 22px; }
-  .link { color: var(--text-muted); font-size: 0.9rem; }
-  .link.active { color: var(--accent); }
-
-  /* Mobile: deliberate two-row header — brand + theme toggle on top,
-     full-width nav links row below. */
-  @media (max-width: 600px) {
-    nav { flex-wrap: wrap; gap: 0; }
-    .brand { margin-right: auto; }
-    .menu { order: 1; width: 100%; margin: 14px 0 0; }
-    ul { flex: 1; justify-content: space-between; gap: 0; }
-    .link { font-size: 0.82rem; }
-  }
+  nav { display: flex; align-items: center; gap: 24px; padding: 24px 0; }
+  .brand { font-weight: 600; margin-right: auto; }
+  ul { list-style: none; display: flex; gap: 24px; }
+  .link { color: var(--text-muted); font-weight: 500; }
+  .link:hover, .link.active { color: var(--text-strong); }
+  .brand, .link { white-space: nowrap; }
+  @media (max-width: 480px) { nav, ul { gap: 14px; } nav { font-size: 0.92rem; } }
 </style>

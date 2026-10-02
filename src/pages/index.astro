@@ -1,65 +1,204 @@
 ---
 import Base from '../layouts/Base.astro';
+import { Icon } from 'astro-icon/components';
+import Skills from '../components/Skills.astro';
+import CvEntries from '../components/CvEntries.astro';
+import HoverCard from '../components/HoverCard.astro';
 import PublicationList from '../components/PublicationList.astro';
+import { getCollection } from 'astro:content';
 import { site } from '../config';
 import type { Publication } from '../lib/publications';
 import pubsData from '../data/publications.json';
-const recent = (pubsData as Publication[]).slice(0, 2);
+
+const recent = (pubsData as Publication[]).slice(0, 3);
+const cv = await getCollection('cv');
+const items = (id: string) => cv.find((e) => e.id === id)?.data.items ?? [];
+
+const work = [
+  {
+    name: 'SeQuant',
+    href: 'https://github.com/ValeevGroup/SeQuant',
+    repo: 'ValeevGroup/SeQuant',
+    meta: 'C++ · symbolic tensor algebra · open source',
+    desc: 'Derives many-body equations symbolically and evaluates them numerically. I implemented equation-of-motion, response, and unitary coupled-cluster methods, coupled-cluster density matrices, and a tool that estimates the cost of generated equations.',
+    logo: '/logos/sequant.svg',
+    logoDark: '/logos/sequant-dark.png',
+  },
+  {
+    name: 'Massively Parallel Quantum Chemistry (MPQC)',
+    logo: '/logos/mpqc.png',
+    meta: 'C++ · MPI · TiledArray · MADNESS',
+    desc: 'General-order coupled cluster in a distributed-memory electronic structure package built on the TiledArray tensor framework and the MADNESS parallel runtime: ground and excited states, linear-response properties, and electric-field perturbations.',
+  },
+  {
+    name: 'Tensor contractions on GPUs',
+    meta: 'C++20 · CUDA · cuTENSOR',
+    desc: 'An einsum layer over cuTENSOR and a SeQuant backend built on it, plus unified-memory device tiles for TiledArray.',
+  },
+];
+
+// Repo details for the hover cards, fetched at build time. A failed fetch
+// just means no card; it never fails the build.
+async function repoInfo(slug: string) {
+  const token = process.env.GITHUB_TOKEN;
+  try {
+    const res = await fetch(`https://api.github.com/repos/${slug}`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+    if (!res.ok) return null;
+    const r = await res.json();
+    return {
+      description: r.description as string,
+      language: r.language as string,
+      stars: r.stargazers_count as number,
+      pushed: r.pushed_at as string,
+    };
+  } catch {
+    return null;
+  }
+}
+// GitHub's language colours, for the dot in the card footer.
+const langColor: Record<string, string> = { 'C++': '#f34b7d', Python: '#3572A5', Cuda: '#3A4E3A' };
+const repos = Object.fromEntries(
+  await Promise.all(work.filter((w) => w.repo).map(async (w) => [w.repo, await repoInfo(w.repo!)])),
+);
+
+
+const links = [
+  { label: 'GitHub', href: site.socials.github, icon: 'simple-icons:github' },
+  { label: 'Google Scholar', href: site.socials.scholar, icon: 'simple-icons:googlescholar' },
+  { label: 'LinkedIn', href: site.socials.linkedin, icon: 'simple-icons:linkedin' },
+];
 ---
 <Base>
-  <section class="hero">
+  <header class="hero">
     <img src="/avatar.jpg" alt={site.name} />
     <div>
       <h1>{site.name}</h1>
-      <p class="role mono">{site.role}</p>
-      <p class="links mono">
-        <a href={site.socials.github}>github</a> ·
-        <a href={site.socials.scholar}>google scholar</a> ·
-        <a href={site.socials.linkedin}>linkedin</a>
+      <p class="role">{site.role}</p>
+      <p class="motto mono">learn · build · scale</p>
+    </div>
+    <nav class="links">
+      <a href={`mailto:${site.email}`} aria-label="Email" title="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg>
+      </a>
+      {links.map((l) => <a href={l.href} aria-label={l.label} title={l.label}><Icon name={l.icon} /></a>)}
+    </nav>
+  </header>
+
+  <section class="section">
+    <h2>About</h2>
+    <div class="prose">
+      <p>
+        I am a PhD candidate in the <a href="https://valeevgroup.github.io" target="_blank" rel="noopener">Valeev
+        Research Group</a> at <a href="https://www.vt.edu" target="_blank" rel="noopener">Virginia Tech</a>, working on
+        coupled-cluster theory and the software that implements it. My current focus is unitary coupled cluster:
+        a practical formulation based on a Bernoulli expansion, and benchmarks of it for ground and excited states.
+      </p>
+      <p>
+        Most of this work lives in two C++ codes. <a href="https://github.com/ValeevGroup/SeQuant" target="_blank" rel="noopener"><code>SeQuant</code></a>{' '}
+        derives many-body equations symbolically and evaluates them, and <code>MPQC</code> runs general-order
+        coupled cluster on distributed memory. More recently, I have been moving these tensor contractions onto GPUs.
+      </p>
+      <p>
+        Before Virginia Tech, I completed an integrated BS-MS at <a href="https://www.iisertvm.ac.in" target="_blank" rel="noopener">IISER
+        Thiruvananthapuram</a>, where I developed empirical interaction potentials for layered materials.
       </p>
     </div>
   </section>
 
-  <section class="about">
-    <h2 class="section-marker">## about</h2>
-    <p>
-      I am a graduate student in the <a href="https://valeevgroup.github.io" target="_blank" rel="noopener">Valeev
-      Group</a> at <a href="https://www.vt.edu" target="_blank" rel="noopener">Virginia Tech</a>, where I work
-      on many-body electronic structure methods. My research primarily focuses on developing higher-order coupled-cluster 
-      methods and their application to ground and excited state properties.
-    </p>
-    <p>
-      I am equal parts scientist and developer: much of my time goes into the tools that make the interesting
-      science possible, including <a href="https://github.com/ValeevGroup/SeQuant" target="_blank" rel="noopener"><code>SeQuant</code></a>,
-      a framework for symbolic and numerical tensor algebra, and <code>MPQC4</code>, a parallel, distributed-memory
-      electronic structure package built on <a href="https://github.com/ValeevGroup/tiledarray" target="_blank" rel="noopener"><code>TiledArray</code></a>.
-      I work mostly in modern C++ and Python, with an eye toward high-performance computing. Before
-      Virginia Tech, I completed my integrated BS-MS at <a href="https://www.iisertvm.ac.in" target="_blank" rel="noopener">IISER
-      Thiruvananthapuram</a>, developing empirical interaction potentials for layered materials.
-    </p>
-    <p>
-      Away from the terminal, I am usually out with a camera. You can find some of my
-      <a href="https://instagram.com/ajaymk_" target="_blank" rel="noopener">photography on Instagram</a>.
-    </p>
+  <section class="section">
+    <h2>Work</h2>
+    <div class="cards">
+      {work.map((w) => (
+        <div class="project">
+          <div class="logo">
+            {w.logo
+              ? <><img class:list={{ light: w.logoDark }} src={w.logo} alt="" />{w.logoDark && <img class="dark" src={w.logoDark} alt="" />}</>
+              : <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" /><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" /></svg>}
+          </div>
+          <div class="card">
+            <h3>
+              {w.href ? (
+                <HoverCard href={w.href} target="_blank">
+                  {w.name}
+                  {w.repo && repos[w.repo] && (
+                    <span slot="card">
+                      <span class="hc-head"><Icon name="simple-icons:github" />{w.repo}</span>
+                      <span class="hc-body">{repos[w.repo].description}</span>
+                      <span class="hc-foot">
+                        <span><span class="dot" style={`background:${langColor[repos[w.repo].language] ?? 'var(--text-muted)'}`} />{repos[w.repo].language}</span>
+                        <span>★ {repos[w.repo].stars}</span>
+                        <span>updated <time datetime={repos[w.repo].pushed} data-relative>{repos[w.repo].pushed.slice(0, 10)}</time></span>
+                      </span>
+                    </span>
+                  )}
+                </HoverCard>
+              ) : w.name}
+            </h3>
+            <div class="meta mono">{w.meta}</div>
+            <p>{w.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
   </section>
 
-  {recent.length > 0 && (
-    <section class="recent">
-      <h2 class="section-marker">## recent publications</h2>
-      <PublicationList items={recent} />
-      <p class="mono"><a href="/publications">all publications →</a></p>
-    </section>
-  )}
+  <section class="section">
+    <h2>Experience</h2>
+    <CvEntries items={[...items('experience'), ...items('teaching')]} />
+  </section>
+
+  <section class="section">
+    <h2>Publications</h2>
+    <div>
+      <PublicationList items={recent} previews />
+      <p class="more"><a href="/publications">All publications →</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Education</h2>
+    <CvEntries items={items('education')} />
+  </section>
+
+  <section class="section">
+    <h2>Skills</h2>
+    <Skills items={items('skills')} />
+  </section>
 </Base>
 
 <style>
-  .hero { display: flex; gap: 32px; align-items: center; padding: 24px 0 12px; }
-  .hero img { width: 120px; height: 120px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); }
-  .hero h1 { font-size: 2.2rem; margin-top: 6px; }
-  .role { color: var(--accent); margin-top: 8px; }
-  .links { margin-top: 14px; font-size: 0.9rem; }
-  .about { margin-top: 40px; }
-  .about p { color: var(--text-muted); margin-bottom: 14px; text-align: justify; }
-  .recent { margin-top: 40px; }
-  @media (max-width: 600px) { .hero { flex-direction: column; align-items: flex-start; } }
+  .hero { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; padding: 24px 0 32px; }
+  .hero img { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
+  .hero h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
+  .role { color: var(--text-muted); margin-top: 2px; }
+  .motto { color: var(--accent); font-size: 0.8rem; margin-top: 4px; }
+  .links { display: flex; gap: 18px; margin-left: auto; }
+  .links a { color: var(--text-muted); display: inline-flex; }
+  .links a:hover { color: var(--accent); }
+  .links svg { width: 22px; height: 22px; }
+
+  .prose p + p { margin-top: 12px; }
+
+  .cards { display: grid; gap: 12px; }
+  /* Logos hang in the gutter left of the cards, as in Experience. */
+  .project { position: relative; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .logo { position: absolute; left: -96px; top: 50%; transform: translateY(-50%); width: 72px; height: 72px; display: grid; place-items: center; color: var(--text-muted); }
+  .logo img, .logo svg { width: 100%; height: 100%; object-fit: contain; }
+  .logo .dark, :global([data-theme='dark']) .logo .light { display: none; }
+  :global([data-theme='dark']) .logo .dark { display: block; }
+  .card h3 { font-size: 1.02rem; font-weight: 600; }
+  .card .meta { color: var(--text-muted); font-size: 0.75rem; margin-top: 2px; }
+  .card p { font-size: 0.93rem; margin-top: 8px; }
+
+  .more { margin-top: 12px; font-size: 0.92rem; font-weight: 500; }
+
+
+  @media (max-width: 720px) {
+    .logo { display: none; }
+    .hero { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .links { margin-left: 0; }
+  }
 </style>

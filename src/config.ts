@@ -1,10 +1,9 @@
 export const site = {
   name: 'Ajay Melekamburath',
-  brand: 'ajay',
-  role: 'Computational Chemistry | C++ | High-Performance Computing',
-  bio: 'Graduate student in the Valeev Group at Virginia Tech, working on many-body electronic structure methods and the scientific software behind them.',
+  role: 'PhD Candidate, Virginia Tech',
+  bio: 'PhD candidate in the Valeev Research Group at Virginia Tech, working on coupled-cluster theory and the software that implements it.',
   orcidId: '0000-0002-0079-5443',
-  email: '', // optional: set to render a contact link
+  email: 'ajaymk22@vt.edu',
   socials: {
     github: 'https://github.com/ajay-mk',
     scholar: 'https://scholar.google.com/citations?hl=en&user=VC-HIpUAAAAJ',
@@ -15,9 +14,6 @@ export const site = {
 } as const;
 
 export const nav = [
-  { href: '/', label: 'home' },
-  { href: '/cv', label: 'cv' },
-  { href: '/publications', label: 'publications' },
-  { href: '/projects', label: 'projects' },
-  { href: '/blog', label: 'blog' },
+  { href: '/publications', label: 'Publications' },
+  { href: '/cv', label: 'CV' },
 ];
