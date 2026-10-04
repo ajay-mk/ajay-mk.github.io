@@ -89,10 +89,10 @@ skills:
   section: skills
   items:
     - role: Electronic structure
-      details: [Coupled cluster, Equation-of-motion coupled cluster, Unitary coupled cluster, Linear response, Symbolic tensor algebra]
+      details: [Coupled cluster, Equation-of-motion coupled cluster, Unitary coupled cluster, Linear response, Symbolic tensor algebra, Code generation]
     - role: Programming
-      details: [C++, Python, Bash, Boost, Eigen]
+      details: [C++, Python, CUDA, Bash, Boost]
     - role: High-performance computing
-      details: [MPI, MADNESS, TiledArray, CUDA, cuTENSOR]
+      details: [MPI, MADNESS, cuTENSOR]
     - role: Tooling
-      details: [CMake, Git, GitHub Actions]
+      details: [CMake, Git, GitHub Actions, LLDB, Sphinx]
