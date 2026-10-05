@@ -1,0 +1,49 @@
+---
+// Fixed section index on the right edge: one tick per section, the current one highlighted.
+// Labels show on hover. Wide screens only; anchors work without JavaScript.
+interface Props { sections: { id: string; label: string }[] }
+const { sections } = Astro.props;
+---
+<nav class="rail" aria-label="Sections">
+  {sections.map((s, i) => (
+    <a href={`#${s.id}`} data-id={s.id}>
+      <span class="lbl"><span class="num">{String(i + 1).padStart(2, '0')}</span> {s.label}</span>
+      <span class="tick" />
+    </a>
+  ))}
+</nav>
+
+<script>
+  const links = new Map([...document.querySelectorAll<HTMLAnchorElement>('.rail a')].map((a) => [a.dataset.id, a]));
+  const visible = new Set<string>();
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) e.isIntersecting ? visible.add(e.target.id) : visible.delete(e.target.id);
+    // Highlight the first section (in page order) that's on screen.
+    const current = [...links.keys()].find((id) => visible.has(id!));
+    for (const [id, a] of links) a.toggleAttribute('aria-current', id === current);
+  }, { rootMargin: '-35% 0px -55% 0px' });
+  for (const id of links.keys()) {
+    const el = document.getElementById(id!);
+    if (el) io.observe(el);
+  }
+</script>
+
+<style>
+  .rail {
+    position: fixed; right: 24px; top: 50%; transform: translateY(-50%); z-index: 5;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+  }
+  a { display: flex; align-items: center; gap: 10px; color: var(--text-muted); text-decoration: none; }
+  .tick { width: 14px; height: 1.5px; background: currentColor; transition: width 0.2s, background 0.2s; }
+  /* Labels sit on the page background so they stay readable if they overlap the content edge. */
+  .lbl {
+    font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--bg); padding: 2px 6px; border-radius: 4px;
+    opacity: 0; transform: translateX(6px); transition: opacity 0.2s, transform 0.2s;
+  }
+  .num { opacity: 0.6; }
+  .rail:hover .lbl, a:focus-visible .lbl { opacity: 1; transform: none; }
+  a:hover, a[aria-current] { color: var(--text-strong); }
+  a[aria-current] .tick { width: 26px; background: var(--accent); }
+  @media (max-width: 1260px) { .rail { display: none; } }
+</style>

@@ -1,0 +1,24 @@
+---
+// Framed figure in the style of a paper: "Fig n" and a label on top, captions below.
+interface Props { n: number; label: string; caption?: string; note?: string }
+const { n, label, caption, note } = Astro.props;
+---
+<figure class="fig">
+  <div class="row"><span>Fig {n}</span><span>{label}</span></div>
+  <div class="art"><slot /></div>
+  {(caption || note) && <div class="row"><span>{caption}</span><span>{note}</span></div>}
+</figure>
+
+<style>
+  .fig {
+    display: flex; flex-direction: column; gap: 6px; padding: 12px 14px;
+    border: 1px solid var(--border); border-radius: 12px; background: var(--bg);
+    color: var(--text-muted);
+  }
+  .row {
+    display: flex; justify-content: space-between; gap: 12px;
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .art { display: grid; place-items: center; min-height: 130px; }
+  .art :global(svg) { width: 100%; max-height: 150px; overflow: visible; }
+</style>

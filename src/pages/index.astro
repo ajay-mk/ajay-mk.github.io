@@ -2,6 +2,11 @@
 import Base from '../layouts/Base.astro';
 import { Icon } from 'astro-icon/components';
 import Skills from '../components/Skills.astro';
+import Rail from '../components/Rail.astro';
+import Figure from '../components/Figure.astro';
+import Goldstone from '../components/figures/Goldstone.astro';
+import Tiles from '../components/figures/Tiles.astro';
+import Chip from '../components/figures/Chip.astro';
 import CvEntries from '../components/CvEntries.astro';
 import HoverCard from '../components/HoverCard.astro';
 import PublicationList from '../components/PublicationList.astro';
@@ -21,19 +26,19 @@ const work = [
     repo: 'ValeevGroup/SeQuant',
     meta: 'C++ · symbolic tensor algebra · open source',
     desc: 'Derives many-body equations symbolically and evaluates them numerically. I implemented equation-of-motion, response, and unitary coupled-cluster methods, coupled-cluster density matrices, and a tool that estimates the cost of generated equations.',
-    logo: '/logos/sequant.svg',
-    logoDark: '/logos/sequant-dark.png',
+    fig: { art: Goldstone, label: 'Goldstone diagram', caption: 'CCSD energy', note: 'derived' },
   },
   {
     name: 'Massively Parallel Quantum Chemistry (MPQC)',
-    logo: '/logos/mpqc.png',
     meta: 'C++ · MPI · TiledArray · MADNESS',
     desc: 'General-order coupled cluster in a distributed-memory electronic structure package built on the TiledArray tensor framework and the MADNESS parallel runtime: ground and excited states, linear-response properties, and electric-field perturbations.',
+    fig: { art: Tiles, label: 'Tiled tensor', caption: '4 nodes', note: '4 × 4 tiles' },
   },
   {
     name: 'Tensor contractions on GPUs',
     meta: 'C++20 · CUDA · cuTENSOR',
     desc: 'An einsum layer over cuTENSOR and a SeQuant backend built on it, plus unified-memory device tiles for TiledArray.',
+    fig: { art: Chip, label: 'Contraction on device', caption: 'CCSD energy', note: 'einsum' },
   },
 ];
 
@@ -86,7 +91,7 @@ const links = [
     </nav>
   </header>
 
-  <section class="section">
+  <section class="section" id="about">
     <h2>About</h2>
     <div class="prose">
       <p>
@@ -107,49 +112,45 @@ const links = [
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="work">
     <h2>Work</h2>
     <div class="cards">
-      {work.map((w) => (
-        <div class="project">
-          <div class="logo">
-            {w.logo
-              ? <><img class:list={{ light: w.logoDark }} src={w.logo} alt="" />{w.logoDark && <img class="dark" src={w.logoDark} alt="" />}</>
-              : <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" /><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" /></svg>}
-          </div>
-          <div class="card">
-            <h3>
-              {w.href ? (
-                <HoverCard href={w.href} target="_blank">
-                  {w.name}
-                  {w.repo && repos[w.repo] && (
-                    <span slot="card">
-                      <span class="hc-head"><Icon name="simple-icons:github" />{w.repo}</span>
-                      <span class="hc-body">{repos[w.repo].description}</span>
-                      <span class="hc-foot">
-                        <span><span class="dot" style={`background:${langColor[repos[w.repo].language] ?? 'var(--text-muted)'}`} />{repos[w.repo].language}</span>
-                        <span>★ {repos[w.repo].stars}</span>
-                        <span>updated <time datetime={repos[w.repo].pushed} data-relative>{repos[w.repo].pushed.slice(0, 10)}</time></span>
-                      </span>
+      {work.map((w, i) => (
+        <div class="card">
+          <h3>
+            {w.href ? (
+              <HoverCard href={w.href} target="_blank">
+                {w.name}
+                {w.repo && repos[w.repo] && (
+                  <span slot="card">
+                    <span class="hc-head"><Icon name="simple-icons:github" />{w.repo}</span>
+                    <span class="hc-body">{repos[w.repo].description}</span>
+                    <span class="hc-foot">
+                      <span><span class="dot" style={`background:${langColor[repos[w.repo].language] ?? 'var(--text-muted)'}`} />{repos[w.repo].language}</span>
+                      <span>★ {repos[w.repo].stars}</span>
+                      <span>updated <time datetime={repos[w.repo].pushed} data-relative>{repos[w.repo].pushed.slice(0, 10)}</time></span>
                     </span>
-                  )}
-                </HoverCard>
-              ) : w.name}
-            </h3>
-            <div class="meta mono">{w.meta}</div>
-            <p>{w.desc}</p>
-          </div>
+                  </span>
+                )}
+              </HoverCard>
+            ) : w.name}
+          </h3>
+          <div class="meta mono">{w.meta}</div>
+          <p>{w.desc}</p>
+          {w.fig && (
+            <Figure n={i + 1} label={w.fig.label} caption={w.fig.caption} note={w.fig.note}><w.fig.art /></Figure>
+          )}
         </div>
       ))}
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="experience">
     <h2>Experience</h2>
     <CvEntries items={[...items('experience'), ...items('teaching')]} />
   </section>
 
-  <section class="section">
+  <section class="section" id="publications">
     <h2>Publications</h2>
     <div>
       <PublicationList items={recent} previews />
@@ -157,15 +158,19 @@ const links = [
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="education">
     <h2>Education</h2>
     <CvEntries items={items('education')} />
   </section>
 
-  <section class="section">
+  <section class="section" id="skills">
     <h2>Skills</h2>
     <Skills items={items('skills')} />
   </section>
+  <Rail sections={[
+    { id: 'about', label: 'About' }, { id: 'work', label: 'Work' }, { id: 'experience', label: 'Experience' },
+    { id: 'publications', label: 'Publications' }, { id: 'education', label: 'Education' }, { id: 'skills', label: 'Skills' },
+  ]} />
 </Base>
 
 <style>
@@ -182,13 +187,12 @@ const links = [
   .prose p + p { margin-top: 12px; }
 
   .cards { display: grid; gap: 12px; }
-  /* Logos hang in the gutter left of the cards, as in Experience. */
-  .project { position: relative; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
-  .logo { position: absolute; left: -96px; top: 50%; transform: translateY(-50%); width: 72px; height: 72px; display: grid; place-items: center; color: var(--text-muted); }
-  .logo img, .logo svg { width: 100%; height: 100%; object-fit: contain; }
-  .logo .dark, :global([data-theme='dark']) .logo .light { display: none; }
-  :global([data-theme='dark']) .logo .dark { display: block; }
+  .card {
+    display: grid; grid-template-columns: 1fr 220px; grid-template-rows: auto auto 1fr; column-gap: 20px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px;
+  }
+  .card > :not(:global(.fig)) { grid-column: 1; }
+  .card > :global(.fig) { grid-column: 2; grid-row: 1 / span 3; }
   .card h3 { font-size: 1.02rem; font-weight: 600; }
   .card .meta { color: var(--text-muted); font-size: 0.75rem; margin-top: 2px; }
   .card p { font-size: 0.93rem; margin-top: 8px; }
@@ -197,7 +201,8 @@ const links = [
 
 
   @media (max-width: 720px) {
-    .logo { display: none; }
+    .card { grid-template-columns: 1fr; }
+    .card > :global(.fig) { grid-column: 1; grid-row: auto; margin-top: 14px; }
     .hero { flex-direction: column; align-items: flex-start; gap: 16px; }
     .links { margin-left: 0; }
   }

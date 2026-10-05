@@ -1,0 +1,27 @@
+---
+// A GPU die with an einsum contraction on it; pins along each edge.
+const pins = [0, 1, 2, 3, 4, 5];
+---
+<svg viewBox="0 0 220 150" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" aria-hidden="true">
+  {pins.map((p) => (
+    <Fragment>
+      <line class="pin" style={`--k:${p}`} x1={70 + p * 16} y1="8" x2={70 + p * 16} y2="20" />
+      <line class="pin" style={`--k:${p + 6}`} x1={70 + p * 16} y1="130" x2={70 + p * 16} y2="142" />
+      <line class="pin" style={`--k:${p + 12}`} x1="38" y1={35 + p * 16} x2="50" y2={35 + p * 16} />
+      <line class="pin" style={`--k:${p + 18}`} x1="170" y1={35 + p * 16} x2="182" y2={35 + p * 16} />
+    </Fragment>
+  ))}
+  <rect x="50" y="20" width="120" height="110" rx="8" />
+  <rect class="die" x="66" y="36" width="88" height="78" rx="4" />
+  <text x="110" y="70" class="cx">ijab,ijab→</text>
+  <text x="110" y="88" class="cx cs">cuTENSOR</text>
+</svg>
+
+<style>
+  .cx { font: 10px var(--font-mono); fill: var(--text-strong); stroke: none; text-anchor: middle; }
+  .cs { fill: currentColor; font-size: 8px; letter-spacing: 0.08em; }
+  .die { stroke: var(--accent); }
+  :global(.card:hover) .pin { animation: ch-pin 1.2s ease-in-out infinite; animation-delay: calc(var(--k) * 50ms); }
+  @keyframes ch-pin { 50% { stroke: var(--accent); } }
+  @media (prefers-reduced-motion: reduce) { :global(.card:hover) .pin { animation: none; } }
+</style>

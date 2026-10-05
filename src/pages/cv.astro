@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import CvEntries from '../components/CvEntries.astro';
 import Skills from '../components/Skills.astro';
+import Rail from '../components/Rail.astro';
 import { getCollection } from 'astro:content';
 
 const cv = await getCollection('cv');
@@ -9,6 +10,9 @@ const get = (id: string) => cv.find((e) => e.id === id)?.data;
 const order = ['education', 'experience', 'talks', 'posters', 'teaching', 'awards'];
 const label = (s: string) => s[0].toUpperCase() + s.slice(1);
 const skills = get('skills');
+const railSections = [...order, 'skills']
+  .filter((id) => get(id))
+  .map((id) => ({ id, label: label(get(id)!.section) }));
 ---
 <Base title="CV">
   <div class="head">
@@ -17,18 +21,20 @@ const skills = get('skills');
   </div>
 
   {order.map((id) => get(id) && (
-    <section class="section">
+    <section class="section" id={id}>
       <h2>{label(get(id)!.section)}</h2>
       <CvEntries items={get(id)!.items} full />
     </section>
   ))}
 
   {skills && (
-    <section class="section">
+    <section class="section" id="skills">
       <h2>Skills</h2>
       <Skills items={skills.items} />
     </section>
   )}
+
+  <Rail sections={railSections} />
 </Base>
 
 <style>

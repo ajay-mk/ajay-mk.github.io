@@ -1,0 +1,38 @@
+---
+// Isometric block tensor split into 4x4 tiles, coloured by the node that owns each tile.
+const n = 4, ox = 110, oy = 22, ux = 22, uy = 11; // ponytail: fixed 4x4 grid, it's an illustration
+const P = (i: number, j: number) => [ox + (i - j) * ux, oy + (i + j) * uy];
+const tiles = [];
+for (let i = 0; i < n; i++)
+  for (let j = 0; j < n; j++) {
+    const pts = [P(i, j), P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)].map((p) => p.join(',')).join(' ');
+    tiles.push({ pts, node: (i % 2) * 2 + (j % 2), k: i * n + j }); // 2x2 block-cyclic over 4 nodes
+  }
+const depth = 12;
+const [l, b, r] = [P(0, n), P(n, n), P(n, 0)];
+---
+<svg viewBox="0 0 220 150" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true">
+  <path d={`M${l[0]} ${l[1]} v${depth} L${b[0]} ${b[1] + depth} L${r[0]} ${r[1] + depth} v${-depth} M${b[0]} ${b[1]} v${depth}`} />
+  {tiles.map((t) => (
+    <polygon points={t.pts} class={`tile node${t.node}`} style={`--k:${t.k}`} />
+  ))}
+  <text x="12" y="140" class="tl">node 0</text>
+  <rect x="50" y="133" width="8" height="8" class="node0" />
+  <text x="72" y="140" class="tl">1</text>
+  <rect x="80" y="133" width="8" height="8" class="node1" />
+  <text x="102" y="140" class="tl">2</text>
+  <rect x="110" y="133" width="8" height="8" class="node2" />
+  <text x="132" y="140" class="tl">3</text>
+  <rect x="140" y="133" width="8" height="8" class="node3" />
+</svg>
+
+<style>
+  .node0 { fill: var(--accent); fill-opacity: 0.85; }
+  .node1 { fill: var(--accent); fill-opacity: 0.5; }
+  .node2 { fill: var(--accent); fill-opacity: 0.25; }
+  .node3 { fill: var(--accent); fill-opacity: 0.08; }
+  .tl { font: 9px var(--font-mono); fill: currentColor; stroke: none; }
+  :global(.card:hover) .tile { animation: tl-pulse 1.6s ease-in-out infinite; animation-delay: calc(var(--k) * 60ms); }
+  @keyframes tl-pulse { 50% { fill-opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { :global(.card:hover) .tile { animation: none; } }
+</style>

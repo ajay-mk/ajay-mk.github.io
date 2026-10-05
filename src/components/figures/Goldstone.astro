@@ -1,0 +1,30 @@
+---
+// Two-vertex Goldstone diagram: interaction line on top, doubles amplitude below.
+const vertices = [70, 150];
+---
+<svg viewBox="0 0 220 150" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+  <line class="gs-int" x1="70" y1="32" x2="150" y2="32" stroke-dasharray="4 4" />
+  <text x="110" y="20" class="gs-t">g</text>
+  <line x1="45" y1="122" x2="175" y2="122" stroke-width="3" />
+  <text x="183" y="120" class="gs-t">t</text>
+  {vertices.map((x, k) => (
+    <Fragment>
+      {/* Particle line (up) and hole line (down), with arrowheads at the curve midpoints. */}
+      <path d={`M${x} 122 C ${x - 22} 95, ${x - 22} 60, ${x} 32`} stroke="var(--accent)" />
+      <polygon points={`${x - 16.5},72 ${x - 20.5},80 ${x - 12.5},80`} fill="var(--accent)" stroke="none" />
+      <path d={`M${x} 32 C ${x + 22} 60, ${x + 22} 95, ${x} 122`} />
+      <polygon points={`${x + 16.5},82 ${x + 12.5},74 ${x + 20.5},74`} fill="currentColor" stroke="none" />
+      <circle cx={x} cy="32" r="2.5" fill="currentColor" />
+      <text x={x - 32} y="82" class="gs-t gs-p">a{k + 1}</text>
+      <text x={x + 21} y="82" class="gs-t">i{k + 1}</text>
+    </Fragment>
+  ))}
+</svg>
+
+<style>
+  .gs-t { font: italic 11px var(--font-sans); fill: currentColor; stroke: none; }
+  .gs-p { fill: var(--accent); }
+  :global(.card:hover) .gs-int { animation: gs-flow 1s linear infinite; }
+  @keyframes gs-flow { to { stroke-dashoffset: -16; } }
+  @media (prefers-reduced-motion: reduce) { :global(.card:hover) .gs-int { animation: none; } }
+</style>

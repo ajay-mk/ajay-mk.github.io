@@ -23,7 +23,8 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { color-scheme: light; }
+html { color-scheme: light; scroll-padding-top: 24px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 html[data-theme='dark'] { color-scheme: dark; }
 
 body {
