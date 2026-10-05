@@ -8,7 +8,7 @@
   --text-muted: #73736b;
   --font-sans: 'Instrument Sans', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
-  --maxw: 960px;
+  --maxw: 1120px;
 }
 
 [data-theme='dark'] {
@@ -23,7 +23,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { color-scheme: light; scroll-padding-top: 24px; }
+html { color-scheme: light; scroll-padding-top: 24px; font-size: 106.25%; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 html[data-theme='dark'] { color-scheme: dark; }
 
@@ -31,7 +31,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 15.5px;
+  font-size: 1rem;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
