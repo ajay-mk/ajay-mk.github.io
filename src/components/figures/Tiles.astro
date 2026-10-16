@@ -1,12 +1,12 @@
 ---
-// Isometric block tensor split into 4x4 tiles, coloured by the node that owns each tile.
-const n = 4, ox = 110, oy = 22, ux = 22, uy = 11; // ponytail: fixed 4x4 grid, it's an illustration
+// Isometric block-sparse tensor in 4x4 tiles: banded nonzero tiles coloured by owning MPI rank, zero tiles left empty.
+const n = 4, ox = 110, oy = 30, ux = 22, uy = 11; // ponytail: fixed 4x4 grid, it's an illustration
 const P = (i: number, j: number) => [ox + (i - j) * ux, oy + (i + j) * uy];
 const tiles = [];
 for (let i = 0; i < n; i++)
   for (let j = 0; j < n; j++) {
     const pts = [P(i, j), P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)].map((p) => p.join(',')).join(' ');
-    tiles.push({ pts, node: (i % 2) * 2 + (j % 2), k: i * n + j }); // 2x2 block-cyclic over 4 nodes
+    tiles.push({ pts, node: (i % 2) * 2 + (j % 2), k: i * n + j, zero: Math.abs(i - j) > 1 }); // 2x2 block-cyclic over 4 ranks
   }
 const depth = 12;
 const [l, b, r] = [P(0, n), P(n, n), P(n, 0)];
@@ -14,14 +14,7 @@ const [l, b, r] = [P(0, n), P(n, n), P(n, 0)];
 <svg viewBox="0 0 220 150" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true">
   <path d={`M${l[0]} ${l[1]} v${depth} L${b[0]} ${b[1] + depth} L${r[0]} ${r[1] + depth} v${-depth} M${b[0]} ${b[1]} v${depth}`} />
   {tiles.map((t) => (
-    <polygon points={t.pts} class={`tile node${t.node}`} style={`--k:${t.k}`} />
-  ))}
-  <text x="42" y="141" class="tl">node</text>
-  {[0, 1, 2, 3].map((k) => (
-    <Fragment>
-      <rect x={72 + k * 28} y="133" width="8" height="8" rx="1.5" class={`node${k}`} />
-      <text x={84 + k * 28} y="141" class="tl">{k}</text>
-    </Fragment>
+    <polygon points={t.pts} class={t.zero ? 'zero' : `tile node${t.node}`} style={`--k:${t.k}`} />
   ))}
 </svg>
 
@@ -30,7 +23,7 @@ const [l, b, r] = [P(0, n), P(n, n), P(n, 0)];
   .node1 { fill: var(--accent); fill-opacity: 0.5; }
   .node2 { fill: var(--accent); fill-opacity: 0.25; }
   .node3 { fill: var(--accent); fill-opacity: 0.08; }
-  .tl { font: 9px var(--font-mono); fill: currentColor; stroke: none; }
+  .zero { stroke-dasharray: 2 3; stroke-opacity: 0.5; }
   :global(.card:hover) .tile { animation: tl-pulse 1.6s ease-in-out infinite; animation-delay: calc(var(--k) * 60ms); }
   @keyframes tl-pulse { 50% { fill-opacity: 1; } }
   @media (prefers-reduced-motion: reduce) { :global(.card:hover) .tile { animation: none; } }

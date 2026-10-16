@@ -13,17 +13,15 @@ const pins = [0, 1, 2, 3, 4, 5];
   ))}
   <rect x="50" y="20" width="120" height="110" rx="8" />
   <rect class="die" x="66" y="36" width="88" height="78" rx="4" />
-  <text x="92" y="80" class="mt">t</text>
-  <text x="97" y="72" class="mi">ab</text><text x="97" y="84" class="mi">ij</text>
-  <text x="114" y="80" class="mt">g</text>
-  <text x="121" y="72" class="mi">ij</text><text x="121" y="84" class="mi">ab</text>
-  <text x="110" y="102" class="cs">cuTENSOR</text>
+  <text x="95" y="84" class="mt">t</text>
+  <text x="100" y="76" class="mi">ab</text><text x="100" y="88" class="mi">ij</text>
+  <text x="117" y="84" class="mt">g</text>
+  <text x="124" y="76" class="mi">ij</text><text x="124" y="88" class="mi">ab</text>
 </svg>
 
 <style>
   .mt { font: italic 16px var(--font-math); fill: var(--text-strong); stroke: none; }
   .mi { font: italic 9px var(--font-math); fill: var(--text-strong); stroke: none; }
-  .cs { font: 7.5px var(--font-mono); fill: currentColor; stroke: none; text-anchor: middle; letter-spacing: 0.08em; }
   .die { stroke: var(--accent); }
   :global(.card:hover) .pin { animation: ch-pin 1.2s ease-in-out infinite; animation-delay: calc(var(--k) * 50ms); }
   @keyframes ch-pin { 50% { stroke: var(--accent); } }

@@ -26,19 +26,19 @@ const work = [
     repo: 'ValeevGroup/SeQuant',
     meta: 'C++ · symbolic tensor algebra · open source',
     desc: 'Takes a many-body method from equations to numbers by joining symbolic derivation with numerical evaluation. It automates the slow, error-prone steps in between, so far less code is written by hand. I implemented equation-of-motion, response, and unitary coupled-cluster methods, coupled-cluster density matrices, and a tool that estimates the cost of generated equations.',
-    fig: { art: Network, label: 'Equation to numbers', caption: 'CCSD', note: 'idea → numbers' },
+    fig: { art: Network, label: 'Equation to numbers', caption: 'CCSD energy' },
   },
   {
     name: 'Massively Parallel Quantum Chemistry (MPQC)',
     meta: 'C++ · MPI · TiledArray · MADNESS',
     desc: 'General-order coupled cluster in a distributed-memory electronic structure package built on the TiledArray tensor framework and the MADNESS parallel runtime: ground and excited states, linear-response properties, and electric-field perturbations.',
-    fig: { art: Tiles, label: 'Tiled tensor', caption: '4 nodes', note: '4 × 4 tiles' },
+    fig: { art: Tiles, label: 'Sparse tiled arrays', caption: 'Tiles coloured by MPI rank' },
   },
   {
     name: 'Tensor contractions on GPUs',
     meta: 'C++20 · CUDA · cuTENSOR',
     desc: 'An einsum layer over cuTENSOR and a SeQuant backend built on it, plus unified-memory device tiles for TiledArray.',
-    fig: { art: Chip, label: 'On the GPU', caption: 'CCSD energy', note: 'einsum' },
+    fig: { art: Chip, label: 'On the GPU', caption: 'Einsum contraction' },
   },
 ];
 
@@ -115,7 +115,7 @@ const links = [
   <section class="section" id="work">
     <h2>Work</h2>
     <div class="cards">
-      {work.map((w, i) => (
+      {work.map((w) => (
         <div class="card">
           <h3>
             {w.href ? (
@@ -138,7 +138,7 @@ const links = [
           <div class="meta mono">{w.meta}</div>
           <p>{w.desc}</p>
           {w.fig && (
-            <Figure n={i + 1} label={w.fig.label} caption={w.fig.caption} note={w.fig.note}><w.fig.art /></Figure>
+            <Figure label={w.fig.label} caption={w.fig.caption}><w.fig.art /></Figure>
           )}
         </div>
       ))}
