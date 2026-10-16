@@ -16,14 +16,13 @@ const [l, b, r] = [P(0, n), P(n, n), P(n, 0)];
   {tiles.map((t) => (
     <polygon points={t.pts} class={`tile node${t.node}`} style={`--k:${t.k}`} />
   ))}
-  <text x="12" y="140" class="tl">node 0</text>
-  <rect x="50" y="133" width="8" height="8" class="node0" />
-  <text x="72" y="140" class="tl">1</text>
-  <rect x="80" y="133" width="8" height="8" class="node1" />
-  <text x="102" y="140" class="tl">2</text>
-  <rect x="110" y="133" width="8" height="8" class="node2" />
-  <text x="132" y="140" class="tl">3</text>
-  <rect x="140" y="133" width="8" height="8" class="node3" />
+  <text x="42" y="141" class="tl">node</text>
+  {[0, 1, 2, 3].map((k) => (
+    <Fragment>
+      <rect x={72 + k * 28} y="133" width="8" height="8" rx="1.5" class={`node${k}`} />
+      <text x={84 + k * 28} y="141" class="tl">{k}</text>
+    </Fragment>
+  ))}
 </svg>
 
 <style>

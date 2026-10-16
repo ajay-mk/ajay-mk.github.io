@@ -8,6 +8,7 @@
   --text-muted: #73736b;
   --font-sans: 'Instrument Sans', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-math: 'STIX Two Text', 'Cambria Math', 'Times New Roman', serif;
   --maxw: 1120px;
 }
 
