@@ -1,0 +1,44 @@
+---
+// SeQuant end to end: the CCSD energy expression, its derived tensor network, and the number it evaluates to.
+const cx = 128;
+const g = 92, t = 164, y = 72, r = 11;
+// Four contracted legs between g and t; particle legs (a, b) in the accent colour.
+const bonds = [{ bow: -16, p: true }, { bow: -6, p: true }, { bow: 6 }, { bow: 16 }];
+const digits = '−0.2135'.split('');
+---
+<svg viewBox="0 0 220 150" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" aria-hidden="true">
+  <text x="4" y="25" class="st">equation</text>
+  <text x="4" y="75" class="st">derived</text>
+  <text x="4" y="133" class="st">numbers</text>
+
+  <text x={cx} y="25" class="eq">E = ⟨Φ|e<tspan dy="-5" class="sup">−T</tspan><tspan dy="5"> H e</tspan><tspan dy="-5" class="sup">T</tspan><tspan dy="5">|Φ⟩</tspan></text>
+
+  <line class="fl" x1={cx} y1="34" x2={cx} y2="46" stroke-dasharray="3 3" />
+  {bonds.map((b) => (
+    <path class="fl" d={`M${g} ${y} Q ${(g + t) / 2} ${y + 2 * b.bow}, ${t} ${y}`} stroke={b.p ? 'var(--accent)' : 'currentColor'} stroke-dasharray="3 3" />
+  ))}
+  <circle cx={g} cy={y} r={r} class="nn" />
+  <circle cx={t} cy={y} r={r} class="nn" />
+  <text x={g} y={y + 4} class="nt">g</text>
+  <text x={t} y={y + 4} class="nt">t</text>
+  <line class="fl" x1={cx} y1="98" x2={cx} y2="114" stroke-dasharray="3 3" />
+
+  <text x={cx} y="133" class="num">
+    {digits.map((d, k) => <tspan class="dg" style={`--k:${k}`}>{d}</tspan>)}<tspan class="unit"> Eₕ</tspan>
+  </text>
+</svg>
+
+<style>
+  .st { font: 8px var(--font-mono); fill: currentColor; stroke: none; letter-spacing: 0.06em; }
+  .eq { font: italic 12px var(--font-sans); fill: var(--text-strong); stroke: none; text-anchor: middle; }
+  .sup { font-size: 8px; }
+  .nn { fill: var(--bg); }
+  .nt { font: italic 12px var(--font-sans); fill: var(--text-strong); stroke: none; text-anchor: middle; }
+  .num { font: 13px var(--font-mono); fill: var(--text-strong); stroke: none; text-anchor: middle; }
+  .unit { font-size: 10px; fill: var(--text-muted); }
+  :global(.card:hover) .fl { animation: nw-flow 1s linear infinite; }
+  :global(.card:hover) .dg { animation: nw-tick 2s steps(1) infinite; animation-delay: calc(var(--k) * 120ms); }
+  @keyframes nw-flow { to { stroke-dashoffset: -12; } }
+  @keyframes nw-tick { 0% { fill-opacity: 0.25; } 30%, 100% { fill-opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { :global(.card:hover) :is(.fl, .dg) { animation: none; } }
+</style>
