@@ -24,7 +24,7 @@ const [l, b, r] = [P(0, n), P(n, n), P(n, 0)];
   .node2 { fill: var(--accent); fill-opacity: 0.25; }
   .node3 { fill: var(--accent); fill-opacity: 0.08; }
   .zero { stroke-dasharray: 2 3; stroke-opacity: 0.5; }
-  :global(.card:hover) .tile { animation: tl-pulse 1.6s ease-in-out infinite; animation-delay: calc(var(--k) * 60ms); }
+  .tile { animation: tl-pulse 1.6s ease-in-out infinite; animation-delay: calc(var(--k) * 60ms); }
   @keyframes tl-pulse { 50% { fill-opacity: 1; } }
-  @media (prefers-reduced-motion: reduce) { :global(.card:hover) .tile { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .tile { animation: none; } }
 </style>

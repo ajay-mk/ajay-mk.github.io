@@ -23,7 +23,7 @@ const pins = [0, 1, 2, 3, 4, 5];
   .mt { font: italic 16px var(--font-math); fill: var(--text-strong); stroke: none; }
   .mi { font: italic 9px var(--font-math); fill: var(--text-strong); stroke: none; }
   .die { stroke: var(--accent); }
-  :global(.card:hover) .pin { animation: ch-pin 1.2s ease-in-out infinite; animation-delay: calc(var(--k) * 50ms); }
+  .pin { animation: ch-pin 1.2s ease-in-out infinite; animation-delay: calc(var(--k) * 50ms); }
   @keyframes ch-pin { 50% { stroke: var(--accent); } }
-  @media (prefers-reduced-motion: reduce) { :global(.card:hover) .pin { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .pin { animation: none; } }
 </style>

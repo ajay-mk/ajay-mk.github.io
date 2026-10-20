@@ -34,9 +34,9 @@ const cells = vals.map((v, k) => ({ x: 68 + (k % 7) * 12, y: 118 + Math.floor(k 
   .nn { fill: var(--bg); }
   .cl { fill: var(--accent); fill-opacity: var(--v); stroke: var(--border); }
   .nt { font: italic 15px var(--font-math); fill: var(--text-strong); stroke: none; text-anchor: middle; }
-  :global(.card:hover) .fl { animation: nw-flow 1s linear infinite; }
-  :global(.card:hover) .cl { animation: nw-tick 2.4s steps(1) infinite; animation-delay: calc(var(--k) * 80ms); }
+  .fl { animation: nw-flow 1s linear infinite; }
+  .cl { animation: nw-tick 2.4s steps(1) infinite; animation-delay: calc(var(--k) * 80ms); }
   @keyframes nw-flow { to { stroke-dashoffset: -12; } }
   @keyframes nw-tick { 0% { fill-opacity: 0; } 45%, 100% { fill-opacity: var(--v); } }
-  @media (prefers-reduced-motion: reduce) { :global(.card:hover) :is(.fl, .cl) { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { :is(.fl, .cl) { animation: none; } }
 </style>
