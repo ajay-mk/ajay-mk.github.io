@@ -88,7 +88,7 @@ skills:
   section: skills
   items:
     - role: Electronic structure
-      details: [Coupled cluster, Equation-of-motion coupled cluster, Unitary coupled cluster, Linear response, Symbolic tensor algebra, Code generation]
+      details: [Coupled-cluster methods, Unitary coupled-cluster, Molecular response theory, Symbolic tensor algebra]
     - role: Programming
       details: [C++, Python, CUDA, Bash, Boost]
     - role: High-performance computing
