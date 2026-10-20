@@ -21,26 +21,25 @@ experience:
       advisor: Prof. Edward F. Valeev
       when: Aug 2022 – present
       details:
-        - Investigating the effects of higher-order correlation and relativistic corrections on ground and excited state properties.
-        - Automated implementation of general-order coupled-cluster methods for ground and excited states.
-        - "Development of <code>SeQuant</code>: a framework for the symbolic algebra of tensors over scalar and operator fields."
-        - "Development of <code>MPQC4</code>: a parallel distributed-memory electronic structure package built on <code>TiledArray</code>."
+        - Study how higher-order correlation and relativistic corrections affect ground- and excited-state properties.
+        - Automate the implementation of general-order coupled-cluster methods for ground and excited states.
+        - "Develop <code>SeQuant</code>, a C++ framework for symbolic tensor algebra over scalar and operator fields."
+        - "Develop <code>MPQC</code>, a parallel, distributed-memory electronic structure package built on <code>TiledArray</code>."
     - role: Research Assistant
       org: '<a href="https://faculty.iisertvm.ac.in/swathi" target="_blank" rel="noopener">R. S. Swathi Group</a>, IISER Thiruvananthapuram'
       advisor: Prof. R. S. Swathi
       when: Jun 2021 – Jun 2022
       details:
-        - Development and parametrization of empirical potentials from electronic structure calculations.
-        - Inclusion of many-body, anisotropic, and higher-order dispersion terms in empirical potential formulations.
-        - Funded through the Nano Mission project, Department of Science and Technology, India.
+        - Developed and parametrized empirical potentials from electronic structure calculations.
+        - Studied many-body, anisotropic, and higher-order dispersion terms in empirical potential models.
+        - Funded by the Nano Mission project of the Department of Science and Technology, India.
     - role: Master's Student
       org: '<a href="https://faculty.iisertvm.ac.in/swathi" target="_blank" rel="noopener">R. S. Swathi Group</a>, IISER Thiruvananthapuram'
       advisor: Prof. R. S. Swathi
       when: Jul 2020 – Apr 2021
       details:
-        - Investigation of interlayer interactions in graphyne bilayers.
-        - Investigation of the effect of anisotropic terms in empirical potential formulations.
-        - Development and parametrization of empirical potentials for graphyne bilayers from electronic structure calculations.
+        - Studied interlayer interactions in graphyne bilayers, with a focus on the effect of anisotropic terms in empirical potentials.
+        - Developed and parametrized empirical potentials for graphyne bilayers from electronic structure calculations.
 talks:
   section: talks
   items:
@@ -77,8 +76,8 @@ teaching:
       org: Department of Chemistry, Virginia Tech
       when: Aug 2022 – Apr 2023
       details:
-        - Developed and delivered weekly presentations for undergraduate students.
-        - Supervised over 70 students doing experiments and preparing scientific reports, and gave feedback on their writing.
+        - Prepared and gave weekly presentations to undergraduate lab sections.
+        - Supervised more than 70 students through experiments and scientific reports, and gave feedback on their writing.
 awards:
   section: awards
   items:
