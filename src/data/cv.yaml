@@ -94,4 +94,4 @@ skills:
     - role: High-performance computing
       details: [MPI, MADNESS, cuTENSOR]
     - role: Tooling
-      details: [CMake, Git, GitHub Actions, LLDB, Sphinx]
+      details: [CMake, Git, GitHub Actions, LLDB]
