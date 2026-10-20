@@ -79,6 +79,7 @@ const links = [
 ---
 <Base>
   <header class="hero">
+    <div class="lattice" aria-hidden="true"></div>
     <img src="/avatar.jpg" alt={site.name} />
     <div>
       <h1>{site.name}</h1>
@@ -176,7 +177,39 @@ const links = [
 </Base>
 
 <style>
-  .hero { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; padding: 24px 0 32px; }
+  .hero { position: relative; isolation: isolate; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; padding: 24px 0 32px; }
+  .hero > :not(.lattice) { position: relative; }
+
+  /* index lattice: faint dot grid on the right, a slow accent band sweeps across it */
+  .lattice {
+    --dot: 1px; --step: 18px;
+    position: absolute; z-index: -1; inset: 0 0 0 30%; pointer-events: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 55%), linear-gradient(transparent, #000 20%, #000 80%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 55%), linear-gradient(transparent, #000 20%, #000 80%, transparent);
+    -webkit-mask-composite: source-in; mask-composite: intersect;
+  }
+  .lattice::before, .lattice::after {
+    content: ''; position: absolute; inset: 0;
+    background-size: var(--step) var(--step); background-position: center;
+  }
+  .lattice::before {
+    background-image: radial-gradient(circle, color-mix(in srgb, var(--text-muted) 40%, transparent) var(--dot), transparent calc(var(--dot) + 0.4px));
+  }
+  .lattice::after {
+    background-image: radial-gradient(circle, var(--accent) calc(var(--dot) + 0.3px), transparent calc(var(--dot) + 0.7px));
+    -webkit-mask-image: linear-gradient(100deg, transparent 40%, #000 50%, transparent 60%);
+    mask-image: linear-gradient(100deg, transparent 40%, #000 50%, transparent 60%);
+    -webkit-mask-size: 300% 100%; mask-size: 300% 100%;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    animation: sweep 11s ease-in-out infinite;
+  }
+  @keyframes sweep {
+    from { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+    to { -webkit-mask-position: 0% 0; mask-position: 0% 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lattice::after { display: none; }
+  }
   .hero img { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
   .hero h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
   .role { color: var(--text-muted); margin-top: 2px; }
@@ -207,5 +240,6 @@ const links = [
     .card > :global(.fig) { grid-column: 1; grid-row: auto; margin-top: 14px; }
     .hero { flex-direction: column; align-items: flex-start; gap: 16px; }
     .links { margin-left: 0; }
+    .lattice { inset: 0 0 0 40%; }
   }
 </style>
