@@ -41,7 +41,7 @@ const card = Astro.slots.has('card') ? (await Astro.slots.render('card')).trim()
     display: block; border-radius: 12px; overflow: hidden;
     background: var(--surface); border: 1px solid var(--border);
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 12px 32px rgb(0 0 0 / 0.14);
-    color: var(--text); font-size: 0.85rem; font-weight: 400; line-height: 1.5; text-align: left; white-space: normal;
+    color: var(--text); font-size: var(--fs-label); font-weight: 400; line-height: 1.5; text-align: left; white-space: normal;
   }
   .hc-panel:hover { color: var(--text); border-color: var(--accent); }
   @media (hover: hover) {
@@ -51,14 +51,14 @@ const card = Astro.slots.has('card') ? (await Astro.slots.render('card')).trim()
   .hc-card :global(.hc-head) {
     display: flex; align-items: center; gap: 8px; padding: 10px 14px;
     border-bottom: 1px solid var(--border); border-top: 3px solid var(--accent);
-    color: var(--text-strong); font-weight: 600; font-size: 0.82rem;
+    color: var(--text-strong); font-weight: 600; font-size: var(--fs-label);
   }
   .hc-card :global(.hc-head svg) { width: 16px; height: 16px; flex: none; color: var(--text-muted); }
   .hc-card :global(.hc-body) { display: block; padding: 10px 14px; }
   .hc-card :global(.hc-foot) {
     display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; padding: 8px 14px;
     background: var(--bg); border-top: 1px solid var(--border);
-    color: var(--text-muted); font-family: var(--font-mono); font-size: 0.72rem;
+    color: var(--text-muted); font-family: var(--font-mono); font-size: var(--fs-tiny);
   }
   .hc-card :global(.hc-foot svg) { width: 12px; height: 12px; vertical-align: -1px; }
   .hc-card :global(.dot) { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: 0; }
