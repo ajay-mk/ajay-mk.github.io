@@ -1,0 +1,29 @@
+---
+// A GPU die with a tensor contraction on it; pins along each edge.
+const pins = [0, 1, 2, 3, 4, 5];
+---
+<svg viewBox="0 0 220 150" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" aria-hidden="true">
+  {pins.map((p) => (
+    <Fragment>
+      <line class="pin" style={`--k:${p}`} x1={70 + p * 16} y1="8" x2={70 + p * 16} y2="20" />
+      <line class="pin" style={`--k:${p + 6}`} x1={70 + p * 16} y1="130" x2={70 + p * 16} y2="142" />
+      <line class="pin" style={`--k:${p + 12}`} x1="38" y1={35 + p * 16} x2="50" y2={35 + p * 16} />
+      <line class="pin" style={`--k:${p + 18}`} x1="170" y1={35 + p * 16} x2="182" y2={35 + p * 16} />
+    </Fragment>
+  ))}
+  <rect x="50" y="20" width="120" height="110" rx="8" />
+  <rect class="die" x="66" y="36" width="88" height="78" rx="4" />
+  <text x="95" y="84" class="mt">t</text>
+  <text x="100" y="76" class="mi">ab</text><text x="100" y="88" class="mi">ij</text>
+  <text x="117" y="84" class="mt">g</text>
+  <text x="124" y="76" class="mi">ij</text><text x="124" y="88" class="mi">ab</text>
+</svg>
+
+<style>
+  .mt { font: italic 16px var(--font-math); fill: var(--text-strong); stroke: none; }
+  .mi { font: italic 9px var(--font-math); fill: var(--text-strong); stroke: none; }
+  .die { stroke: var(--accent); }
+  .pin { animation: ch-pin 1.2s ease-in-out infinite; animation-delay: calc(var(--k) * 50ms); }
+  @keyframes ch-pin { 50% { stroke: var(--accent); } }
+  @media (prefers-reduced-motion: reduce) { .pin { animation: none; } }
+</style>

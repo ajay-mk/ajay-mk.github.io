@@ -4,7 +4,7 @@ date: 2026-01-01
 description: A framework for symbolic and numerical tensor algebra, aimed at automating the derivation and implementation of many-body electronic structure methods.
 tags: [C++, Quantum Chemistry, Tensor Algebra]
 link: https://github.com/ValeevGroup/SeQuant
-draft: false
+draft: true
 ---
 
 > Placeholder write-up — to be expanded.

@@ -5,4 +5,5 @@ export interface Publication {
   venue: string;
   doi: string | null;
   url: string | null;
+  abstract?: string;
 }

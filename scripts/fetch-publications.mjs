@@ -1,6 +1,7 @@
 import { writeFileSync, existsSync } from 'node:fs';
 import { extractDois } from '../src/lib/orcid.ts';
 import { normalizeCrossref } from '../src/lib/crossref.ts';
+import { abstractFromInvertedIndex } from '../src/lib/openalex.ts';
 
 const ORCID_ID = process.env.ORCID_ID || '0000-0002-0079-5443';
 const OUT = new URL('../src/data/publications.json', import.meta.url);
@@ -18,7 +19,16 @@ async function main() {
       const cr = await fetch(`https://api.crossref.org/works/${encodeURIComponent(doi)}`, { headers: HEADERS });
       if (!cr.ok) continue;
       const { message } = await cr.json();
-      pubs.push(normalizeCrossref(message));
+      const pub = normalizeCrossref(message);
+      // Some publishers (e.g. ACS) don't deposit abstracts with Crossref; OpenAlex often has them.
+      if (!pub.abstract) {
+        const oa = await fetch(`https://api.openalex.org/works/doi:${encodeURIComponent(doi)}?select=abstract_inverted_index`, { headers: HEADERS });
+        if (oa.ok) {
+          const abstract = abstractFromInvertedIndex((await oa.json()).abstract_inverted_index);
+          if (abstract) pub.abstract = abstract;
+        }
+      }
+      pubs.push(pub);
     } catch (e) {
       console.warn(`crossref miss for ${doi}: ${e.message}`);
     }

@@ -3,7 +3,7 @@ title: Hello, World
 date: 2026-06-06
 description: A first post — testing the blog setup.
 tags: [meta]
-draft: false
+draft: true
 ---
 
 This is the first post on the new site. The blog is Markdown-based: drop a `.md`

@@ -1,0 +1,65 @@
+---
+// A link that shows a small card on hover or keyboard focus.
+// Pointer devices only: on touch screens the link behaves normally.
+// Card content uses .hc-head / .hc-body / .hc-foot for a consistent layout.
+interface Props { href?: string; class?: string; target?: string }
+const { href, class: cls, target } = Astro.props;
+// Render first: a slot filled by `{cond && ...}` counts as present even when empty.
+const card = Astro.slots.has('card') ? (await Astro.slots.render('card')).trim() : '';
+---
+<span class="hc">
+  <a href={href} class={cls} target={target} rel={target ? 'noopener' : undefined}><slot /></a>
+  {card && (
+    <span class="hc-card">
+      {/* Same destination as the link, so it's skipped by keyboard and screen readers. */}
+      <a class="hc-panel" href={href} target={target} rel={target ? 'noopener' : undefined} tabindex="-1" aria-hidden="true" set:html={card} />
+    </span>
+  )}
+</span>
+
+<script>
+  // Relative "updated" times, computed in the browser so they stay current between builds.
+  const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+  for (const el of document.querySelectorAll<HTMLTimeElement>('.hc-card time[data-relative]')) {
+    const days = Math.round((Date.parse(el.dateTime) - Date.now()) / 86_400_000);
+    el.textContent = Math.abs(days) < 30 ? rtf.format(days, 'day')
+      : Math.abs(days) < 365 ? rtf.format(Math.round(days / 30), 'month')
+      : rtf.format(Math.round(days / 365), 'year');
+  }
+</script>
+
+<style>
+  .hc { position: relative; }
+  /* Outer box is transparent; its top padding bridges the gap so the pointer can reach the panel. */
+  .hc-card {
+    position: absolute; left: -4px; top: 100%; z-index: 10; padding-top: 10px; width: min(480px, 85vw);
+    opacity: 0; visibility: hidden; transform: translateY(-4px) scale(0.98); transform-origin: top left;
+    transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
+    transition-delay: 0.1s;
+  }
+  .hc-panel {
+    display: block; border-radius: 12px; overflow: hidden;
+    background: var(--surface); border: 1px solid var(--border);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 12px 32px rgb(0 0 0 / 0.14);
+    color: var(--text); font-size: 0.85rem; font-weight: 400; line-height: 1.5; text-align: left; white-space: normal;
+  }
+  .hc-panel:hover { color: var(--text); border-color: var(--accent); }
+  @media (hover: hover) {
+    .hc:hover .hc-card, .hc:focus-within .hc-card { opacity: 1; visibility: visible; transform: none; transition-delay: 0.25s; }
+  }
+  @media (hover: none) { .hc-card { display: none; } }
+  .hc-card :global(.hc-head) {
+    display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+    border-bottom: 1px solid var(--border); border-top: 3px solid var(--accent);
+    color: var(--text-strong); font-weight: 600; font-size: 0.82rem;
+  }
+  .hc-card :global(.hc-head svg) { width: 16px; height: 16px; flex: none; color: var(--text-muted); }
+  .hc-card :global(.hc-body) { display: block; padding: 10px 14px; }
+  .hc-card :global(.hc-foot) {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; padding: 8px 14px;
+    background: var(--bg); border-top: 1px solid var(--border);
+    color: var(--text-muted); font-family: var(--font-mono); font-size: 0.72rem;
+  }
+  .hc-card :global(.hc-foot svg) { width: 12px; height: 12px; vertical-align: -1px; }
+  .hc-card :global(.dot) { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: 0; }
+</style>

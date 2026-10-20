@@ -14,7 +14,8 @@
     "year": 2026,
     "venue": "The Journal of Chemical Physics",
     "doi": "10.1063/5.0311913",
-    "url": "https://doi.org/10.1063/5.0311913"
+    "url": "https://doi.org/10.1063/5.0311913",
+    "abstract": "SeQuant is an open-source library for symbolic algebra of tensors over commutative (scalar) and non-commutative (operator) rings. The key innovation supporting most of its functionality is a graph-theoretic tensor network (TN) canonicalizer that can handle TNs with symmetries faster than their standard group-theoretic counterparts. The TN canonicalizer is used for the routine simplification of conventional tensor expressions, for optimizing the application of Wick’s theorem (used to canonicalize products of tensors over operator fields), and for the manipulation of the intermediate representation leading to the numerical evaluation. Notable features of SeQuant include support for noncovariant TNs (featuring hyperedges in their graphical representation and often arising from tensor decompositions) and for tensors with modes that depend parametrically on indices of other tensor modes (such dependencies between degrees of freedom are naturally viewed as nesting of tensors, or “tensors of tensors” arising in block-wise data compressions in data science and modern quantum simulation). SeQuant blurs the line between pure symbolic manipulation/code generation and numerical evaluation by including compiler-like components to optimize and directly interpret tensor expressions using external numerical tensor algebra frameworks. The SeQuant source code is available at https://github.com/ValeevGroup/SeQuant."
   },
   {
     "title": "Adsorption of Aromatic Hydrocarbons on Graphene: From Energy Decomposition to Stable Adsorption Geometries",
@@ -26,7 +27,8 @@
     "year": 2026,
     "venue": "Chemistry – An Asian Journal",
     "doi": "10.1002/asia.70603",
-    "url": "https://doi.org/10.1002/asia.70603"
+    "url": "https://doi.org/10.1002/asia.70603",
+    "abstract": "The quantitative prediction of the π–π interaction energetics of the adsorption of polycyclic aromatic hydrocarbons (PAHs) on graphene remains a challenge, prompting the need for computationally efficient yet reliable methods. Herein, we investigated the intermolecular interactions of aromatic hydrocarbons, benzene, naphthalene, anthracene, pyrene, and coronene, with differently‐sized nanographene models using the symmetry‐adapted perturbation theory (SAPT) approach at the SAPT0 level. Convergence analysis of the total intermolecular interaction energies and the intervening components established circumcircumcoronene as the smallest nanographene model that can model the adsorption of the chosen aromatic hydrocarbons. The SAPT0 energies were then employed as the reference data for parametrizing an anisotropic analytic potential, namely the PAH anisotropic potential (PAHAP). The thus‐parametrized PAHAP was subsequently employed to predict the most stable adsorption geometries of aromatic hydrocarbons over graphene. The estimated interaction energies and equilibrium distances differed significantly from those obtained using the original PAHAP parametrized against SAPT(DFT) interaction energies for small PAH dimers ( J. Chem. Theory Comput ., 2010 , 6 , 683–695). Nonetheless, single‐point density functional theory electronic energy computation of both sets of PAHAP data yielded very similar energies, suggesting the competence of PAHAP parametrized against a comparatively low‐demand computational approach like SAPT0 in modeling π–π interactions."
   },
   {
     "title": "“Best” Iterative Coupled-Cluster Triples Model? More Evidence for 3CC",
@@ -39,7 +41,8 @@
     "year": 2024,
     "venue": "The Journal of Physical Chemistry A",
     "doi": "10.1021/acs.jpca.4c04667",
-    "url": "https://doi.org/10.1021/acs.jpca.4c04667"
+    "url": "https://doi.org/10.1021/acs.jpca.4c04667",
+    "abstract": "To follow up on the unexpectedly good performance of several coupled-cluster models with approximate inclusion of 3-body clusters [ Rishi, V.; Valeev, E. F. J. Chem. Phys. 2019, 151, 064102 .] we performed a more complete assessment of the 3CC method [ Feller, D. . J. Chem. Phys. 2008, 129, 204105 .] for accurate computational thermochemistry in the standard HEAT framework. New spin-integrated implementation of the 3CC method applicable to closed- and open-shell systems utilizes a new automated toolchain for derivation, optimization, and evaluation of operator algebra in many-body electronic structure. We found that with a double-ζ basis set the 3CC correlation energies and their atomization energy contributions are almost always more accurate (with respect to the CCSDTQ reference) than the CCSDT model as well as the standard CCSD(T) model. The mean absolute errors in cc-pVDZ {3CC, CCSDT, and CCSD(T)} electronic (per valence electron) and atomization energies relative to the CCSDTQ reference for the HEAT data set [ Tajti, A. . J. Chem. Phys. 2004, 121, 11599–11613.], were {24, 70, 122} μ E h / e and {0.46, 2.00, 2.58} kJ/mol, respectively. The mean absolute errors in the complete-basis-set limit {3CC, CCSDT, and CCSD(T)} atomization energies relative to the HEAT model reference, were {0.52, 2.00, and 1.07} kJ/mol, The significant and systematic reduction of the error by the 3CC method and its lower cost than CCSDT suggests it as a viable candidate for post-CCSD(T) thermochemistry applications, as well as the preferred alternative to CCSDT in general."
   },
   {
     "title": "A journey toward the heaven of chemical fidelity of intermolecular force fields",
@@ -53,7 +56,8 @@
     "year": 2022,
     "venue": "WIREs Computational Molecular Science",
     "doi": "10.1002/wcms.1599",
-    "url": "https://doi.org/10.1002/wcms.1599"
+    "url": "https://doi.org/10.1002/wcms.1599",
+    "abstract": "Alongside the evolution of density functional theory into a new era led by the dispersion‐corrected hybrid density functional theory approaches, formulation of a new generation of intermolecular potentials has also taken the center stage. An ideal potential formulation should desirably possess simplicity of functional forms, physically meaningful parameters, separability of various terms into atomic‐level contributions, computational tractability, ability to capture non‐additivity of interactions, transferability across different chemical species, and crucially, chemical fidelity in terms of reproducing the benchmark data. The Lennard‐Jones potential, one of the popular intermolecular pair potentials for performing large‐scale simulations fails to capture the intricate features of molecular interactions. Woven around the central theme of anisotropy in the nature of intermolecular interactions, herein, we describe various landmark contributions in the quest for chemical fidelity of empirical potential formulations that include (i) incorporation of the anisotropic nature of exchange‐repulsion and dispersion contributions, (ii) multipolar description of the dispersion terms, (iii) damping functions to provide an accurate description of the asymptotes, and (iv) transferability of intermolecular interaction terms. We illustrate the nuances of intermolecular force field development in the context of modeling the non‐covalent interactions governing the (i) binding of atoms and molecules with carbon nanostructures, (ii) molecular aggregates of polycyclic aromatic hydrocarbons, and (iii) interlayer interactions in layered nanostructures. We exemplify the hierarchy of empirical potentials by depicting them on the various rungs of the Jacob's ladder equivalent of density functional theory for the intermolecular force fields. Finally, we discuss some possible futuristic directions in intermolecular force field development.This article is categorized under: Structure and Mechanism &gt; Computational Materials Science Software &gt; Molecular Modeling Molecular and Statistical Mechanics &gt; Molecular Interactions"
   },
   {
     "title": "In pursuit of accurate interlayer potentials for twisted bilayer graphynes",
@@ -67,6 +71,7 @@
     "year": 2021,
     "venue": "Physical Chemistry Chemical Physics",
     "doi": "10.1039/d1cp03637h",
-    "url": "https://doi.org/10.1039/d1cp03637h"
+    "url": "https://doi.org/10.1039/d1cp03637h",
+    "abstract": "In our pursuit of an accurate description of interlayer interactions in twisted bilayer graphynes, the explicit incorporation of anisotropy into the potential formulation holds the key."
   }
 ]

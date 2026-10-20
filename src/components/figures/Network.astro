@@ -1,0 +1,42 @@
+---
+// SeQuant end to end: the CCSD energy expression, its derived tensor network, and the numbers it evaluates to.
+const cx = 110;
+const g = 74, t = 146, y = 72, r = 11;
+// Four contracted legs between g and t; particle legs (a, b) in the accent colour.
+const bonds = [{ bow: -16, p: true }, { bow: -6, p: true }, { bow: 6 }, { bow: 16 }];
+// Evaluated molecular properties; shades stand in for values, none are shown.
+const vals = [0.9, 0.35, 0.6, 0.15, 0.75, 0.3, 0.5, 0.2, 0.1, 0.65, 0.25, 0.8, 0.4, 0.55];
+const cells = vals.map((v, k) => ({ x: 68 + (k % 7) * 12, y: 118 + Math.floor(k / 7) * 12, v, k }));
+---
+<svg viewBox="0 0 220 150" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" aria-hidden="true">
+
+  <text x={cx} y="26" class="eq">E<tspan class="up"> = ⟨</tspan>Φ<tspan class="up">|</tspan>e<tspan dy="-6" class="sup">−T</tspan><tspan dy="6"> H e</tspan><tspan dy="-6" class="sup">T</tspan><tspan dy="6" class="up">|</tspan>Φ<tspan class="up">⟩</tspan></text>
+
+  <line class="fl" x1={cx} y1="34" x2={cx} y2="46" stroke-dasharray="3 3" />
+  {bonds.map((b) => (
+    <path class="fl" d={`M${g} ${y} Q ${(g + t) / 2} ${y + 2 * b.bow}, ${t} ${y}`} stroke={b.p ? 'var(--accent)' : 'currentColor'} stroke-dasharray="3 3" />
+  ))}
+  <circle cx={g} cy={y} r={r} class="nn" />
+  <circle cx={t} cy={y} r={r} class="nn" />
+  <text x={g} y={y + 5} class="nt">g</text>
+  <text x={t} y={y + 5} class="nt">t</text>
+  <line class="fl" x1={cx} y1="98" x2={cx} y2="110" stroke-dasharray="3 3" />
+
+  {cells.map((c) => (
+    <rect class="cl" style={`--k:${c.k}; --v:${c.v}`} x={c.x} y={c.y} width="11" height="11" rx="1.5" stroke-width="0.6" />
+  ))}
+</svg>
+
+<style>
+  .eq { font: italic 15px var(--font-math); fill: var(--text-strong); stroke: none; text-anchor: middle; }
+  .sup { font-size: 10px; }
+  .up { font-style: normal; }
+  .nn { fill: var(--bg); }
+  .cl { fill: var(--accent); fill-opacity: var(--v); stroke: var(--border); }
+  .nt { font: italic 15px var(--font-math); fill: var(--text-strong); stroke: none; text-anchor: middle; }
+  .fl { animation: nw-flow 1s linear infinite; }
+  .cl { animation: nw-tick 2.4s steps(1) infinite; animation-delay: calc(var(--k) * 80ms); }
+  @keyframes nw-flow { to { stroke-dashoffset: -12; } }
+  @keyframes nw-tick { 0% { fill-opacity: 0; } 45%, 100% { fill-opacity: var(--v); } }
+  @media (prefers-reduced-motion: reduce) { :is(.fl, .cl) { animation: none; } }
+</style>

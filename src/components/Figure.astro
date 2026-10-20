@@ -1,0 +1,24 @@
+---
+// Framed figure: a label on top, one caption below, both centred.
+interface Props { label: string; caption?: string }
+const { label, caption } = Astro.props;
+---
+<figure class="fig">
+  <div class="row">{label}</div>
+  <div class="art"><slot /></div>
+  {caption && <div class="row">{caption}</div>}
+</figure>
+
+<style>
+  .fig {
+    display: flex; flex-direction: column; gap: 6px; padding: 12px 14px;
+    border: 1px solid var(--border); border-radius: 12px; background: var(--bg);
+    color: var(--text-muted);
+  }
+  .row {
+    text-align: center;
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .art { display: grid; place-items: center; min-height: 130px; }
+  .art :global(svg) { width: 100%; max-height: 150px; overflow: visible; }
+</style>
