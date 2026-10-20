@@ -37,7 +37,7 @@ const { sections } = Astro.props;
   .tick { width: 14px; height: 1.5px; background: currentColor; transition: width 0.2s, background 0.2s; }
   /* Labels sit on the page background so they stay readable if they overlap the content edge. */
   .lbl {
-    font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+    font-family: var(--font-mono); font-size: var(--fs-tiny); letter-spacing: 0.08em; text-transform: uppercase;
     background: var(--bg); padding: 2px 6px; border-radius: 4px;
     opacity: 0; transform: translateX(6px); transition: opacity 0.2s, transform 0.2s;
   }
