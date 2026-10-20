@@ -25,19 +25,21 @@ const work = [
     href: 'https://github.com/ValeevGroup/SeQuant',
     repo: 'ValeevGroup/SeQuant',
     meta: 'C++ · symbolic tensor algebra · open source',
-    desc: 'Takes a many-body method from equations to numbers by joining symbolic derivation with numerical evaluation. It automates the slow, error-prone steps in between, so far less code is written by hand. I implemented equation-of-motion, response, and unitary coupled-cluster methods, coupled-cluster density matrices, and a tool that estimates the cost of generated equations.',
+    desc: "Takes a many-body method from equations to numbers by joining symbolic derivation with numerical evaluation. It automates the slow, error-prone steps in between, which shortens the path from a new idea to results. I developed SeQuant's many-body operator interface and its coupled-cluster capabilities, including alternative ansätze, linear response, and equation-of-motion methods.",
     fig: { art: Network, label: 'Equation to numbers', caption: 'Molecular properties' },
   },
   {
     name: 'Massively Parallel Quantum Chemistry (MPQC)',
     meta: 'C++ · MPI · TiledArray · MADNESS',
-    desc: 'General-order coupled cluster in a distributed-memory electronic structure package built on the TiledArray tensor framework and the MADNESS parallel runtime: ground and excited states, linear-response properties, and electric-field perturbations.',
+    desc: 'A distributed-memory electronic structure package built on the TiledArray tensor framework and the MADNESS parallel runtime. I work on its general-order coupled-cluster code: ground and excited states, linear-response properties, and electric-field perturbations.',
     fig: { art: Tiles, label: 'Sparse tiled arrays', caption: 'Tiles coloured by MPI rank' },
   },
   {
-    name: 'Tensor contractions on GPUs',
-    meta: 'C++20 · CUDA · cuTENSOR',
-    desc: 'An einsum layer over cuTENSOR and a SeQuant backend built on it, plus unified-memory device tiles for TiledArray.',
+    name: 'Katal',
+    href: 'https://github.com/ajay-mk/Katal',
+    repo: 'ajay-mk/Katal',
+    meta: 'C++20 · CUDA · cuTENSOR · open source',
+    desc: 'A C++20 einsum library for GPU tensor contractions. You write the equation, and Katal sets up and caches the cuTENSOR plan behind it. Deployed with SeQuant for coupled-cluster evaluations.',
     fig: { art: Chip, label: 'On the GPU', caption: 'Einsum contraction' },
   },
 ];
@@ -96,17 +98,17 @@ const links = [
     <div class="prose">
       <p>
         I am a PhD candidate in the <a href="https://valeevgroup.github.io" target="_blank" rel="noopener">Valeev
-        Research Group</a> at <a href="https://www.vt.edu" target="_blank" rel="noopener">Virginia Tech</a>, working on
-        coupled-cluster theory and the software that implements it. My current focus is unitary coupled cluster:
-        a practical formulation based on a Bernoulli expansion, and benchmarks of it for ground and excited states.
+        Research Group</a> at <a href="https://www.vt.edu" target="_blank" rel="noopener">Virginia Tech</a>. My research
+        is on coupled-cluster methods and their application to excited states and molecular properties, and my current
+        focus is truncated unitary coupled-cluster methods for excited states.
       </p>
       <p>
-        Most of this work lives in two C++ codes. <a href="https://github.com/ValeevGroup/SeQuant" target="_blank" rel="noopener"><code>SeQuant</code></a>{' '}
-        derives many-body equations symbolically and evaluates them, and <code>MPQC</code> runs general-order
-        coupled cluster on distributed memory. More recently, I have been moving these tensor contractions onto GPUs.
+        I also build the software these methods run on: <a href="https://github.com/ValeevGroup/SeQuant" target="_blank" rel="noopener"><code>SeQuant</code></a>,
+        which derives a method's equations symbolically and then drives their numerical evaluation, and <code>MPQC</code>,
+        which runs coupled cluster across distributed-memory clusters.
       </p>
       <p>
-        Before Virginia Tech, I completed an integrated BS-MS at <a href="https://www.iisertvm.ac.in" target="_blank" rel="noopener">IISER
+        Before Virginia Tech, I earned an integrated BS-MS at <a href="https://www.iisertvm.ac.in" target="_blank" rel="noopener">IISER
         Thiruvananthapuram</a>, where I developed empirical interaction potentials for layered materials.
       </p>
     </div>

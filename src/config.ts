@@ -1,7 +1,7 @@
 export const site = {
   name: 'Ajay Melekamburath',
   role: 'PhD Candidate, Virginia Tech',
-  bio: 'PhD candidate in the Valeev Research Group at Virginia Tech, working on coupled-cluster theory and the software that implements it.',
+  bio: 'PhD candidate in the Valeev Research Group at Virginia Tech.',
   orcidId: '0000-0002-0079-5443',
   email: 'ajaymk22@vt.edu',
   socials: {
