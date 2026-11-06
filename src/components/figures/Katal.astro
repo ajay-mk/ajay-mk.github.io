@@ -7,7 +7,7 @@ const cols = 8;
 const tiles = Array.from({ length: cols * 3 }, (_, k) => ({ x: 63 + (k % cols) * 12, y: 78 + Math.floor(k / cols) * 12, c: k % cols, r: Math.floor(k / cols) }));
 const steps = [0, 1, 2];
 ---
-<svg class="kt" viewBox="0 -18 220 150" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" aria-hidden="true">
+<svg class="kt" viewBox="26 6 168 112" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" aria-hidden="true">
   <text x={x0} y="20" class="code s" style="--d:0s">einsum("<tspan class="ix">abij</tspan>,<tspan class="ix">ijab</tspan>-&gt;", t, g)</text>
   <line class="s" style="--d:0.25s" x1="110" y1="26" x2="110" y2="37" stroke-dasharray="2 3" />
   <rect class="s plan" style="--d:0.3s" x="58" y="37" width="104" height="24" rx="4" />
