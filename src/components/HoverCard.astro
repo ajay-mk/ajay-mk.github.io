@@ -17,17 +17,6 @@ const card = Astro.slots.has('card') ? (await Astro.slots.render('card')).trim()
   )}
 </span>
 
-<script>
-  // Relative "updated" times, computed in the browser so they stay current between builds.
-  const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
-  for (const el of document.querySelectorAll<HTMLTimeElement>('.hc-card time[data-relative]')) {
-    const days = Math.round((Date.parse(el.dateTime) - Date.now()) / 86_400_000);
-    el.textContent = Math.abs(days) < 30 ? rtf.format(days, 'day')
-      : Math.abs(days) < 365 ? rtf.format(Math.round(days / 30), 'month')
-      : rtf.format(Math.round(days / 365), 'year');
-  }
-</script>
-
 <style>
   .hc { position: relative; }
   /* Outer box is transparent; its top padding bridges the gap so the pointer can reach the panel. */
@@ -58,8 +47,7 @@ const card = Astro.slots.has('card') ? (await Astro.slots.render('card')).trim()
   .hc-card :global(.hc-foot) {
     display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; padding: 8px 14px;
     background: var(--bg); border-top: 1px solid var(--border);
-    color: var(--text-muted); font-family: var(--font-mono); font-size: var(--fs-tiny);
+    color: var(--text-muted); font-size: var(--fs-tiny); font-variant-numeric: tabular-nums;
   }
   .hc-card :global(.hc-foot svg) { width: 12px; height: 12px; vertical-align: -1px; }
-  .hc-card :global(.dot) { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: 0; }
 </style>

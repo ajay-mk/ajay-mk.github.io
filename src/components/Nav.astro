@@ -25,5 +25,10 @@ const items = hasPosts ? [...nav, { href: '/blog', label: 'Blog' }] : nav;
   .link { color: var(--text-muted); font-weight: 500; }
   .link:hover, .link.active { color: var(--text-strong); }
   .brand, .link { white-space: nowrap; }
-  @media (max-width: 480px) { nav, ul { gap: 14px; } nav { font-size: var(--fs-sm); } }
+  /* Phones: name on its own row, links and the toggle below it. */
+  @media (max-width: 480px) {
+    nav { flex-wrap: wrap; row-gap: 10px; font-size: var(--fs-sm); }
+    .brand { flex-basis: 100%; }
+    ul { gap: 18px; margin-right: auto; }
+  }
 </style>

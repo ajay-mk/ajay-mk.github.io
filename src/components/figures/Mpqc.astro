@@ -1,0 +1,125 @@
+---
+// MPQC in three scenes, shown in turn while the card has .play, then resting on the first:
+// 1. a block-sparse tensor in 4x4 tiles (near-diagonal tiles filled, far ones zero);
+// 2. the particle-particle ladder, a Goldstone diagram from the coupled-cluster doubles equations.
+//    Particles point up, holes down; the dashed line is the interaction, the bold bar is T2;
+// 3. excitations from S0 to three excited states and the spectrum they produce (energy runs up).
+// Peak heights are illustrative.
+
+// Scene 1: tiles.
+const n = 4, ox = 110, oy = 30, ux = 22, uy = 11; // ponytail: fixed 4x4 grid, it's an illustration
+const P = (i: number, j: number) => [ox + (i - j) * ux, oy + (i + j) * uy];
+const tiles = [];
+for (let i = 0; i < n; i++)
+  for (let j = 0; j < n; j++) {
+    const pts = [P(i, j), P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)].map((p) => p.join(',')).join(' ');
+    tiles.push({ pts, off: Math.abs(i - j), k: i + j });
+  }
+const depth = 12;
+const [l, b, r] = [P(0, n), P(n, n), P(n, 0)];
+
+// Scene 3: spectrum, with each peak at its state's level.
+const base = 128, x0 = 112, w = 3.5;
+const states = [{ y: 74, h: 84 }, { y: 54, h: 34 }, { y: 36, h: 62 }];
+const pts = [];
+for (let y = 22; y <= base; y += 1) {
+  const x = x0 + states.reduce((s, p) => s + p.h / (1 + ((y - p.y) / w) ** 2), 0);
+  pts.push(`${x.toFixed(1)},${y}`);
+}
+const curve = `M${pts.join(' L')}`;
+
+// Scene 2: Goldstone diagram. A fermion line from (x1,y1) to (x2,y2) with a chevron at its
+// midpoint; up = true points it toward (x2,y2) (particle), false points it back (hole).
+const top = 34, mid = 76, bot = 118;
+const fl = (x1: number, y1: number, x2: number, y2: number, up: boolean) => {
+  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, len = Math.hypot(x2 - x1, y2 - y1);
+  const s = up ? 1 : -1, ux = (s * (x2 - x1)) / len, uy = (s * (y2 - y1)) / len;
+  const bx = mx - 4 * ux, by = my - 4 * uy;
+  return `M${x1} ${y1} L${x2} ${y2} M${(bx - 3 * uy).toFixed(1)} ${(by + 3 * ux).toFixed(1)} L${mx.toFixed(1)} ${my.toFixed(1)} L${(bx + 3 * uy).toFixed(1)} ${(by - 3 * ux).toFixed(1)}`;
+};
+// Particle-particle ladder, built in three steps: the T2 amplitude with its hole lines, the
+// particle lines up to the interaction, then the outgoing particles.
+const vx = 15;
+const steps = [
+  [fl(-vx, bot, -32, top, false), fl(vx, bot, 32, top, false)],
+  [fl(-vx, bot, -vx, mid, true), fl(vx, bot, vx, mid, true)],
+  [fl(-vx, mid, -9, top, true), fl(vx, mid, 9, top, true)],
+];
+---
+<svg viewBox="0 0 220 150" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <g class="sc sc1">
+    <path d={`M${l[0]} ${l[1]} v${depth} L${b[0]} ${b[1] + depth} L${r[0]} ${r[1] + depth} v${-depth} M${b[0]} ${b[1]} v${depth}`} />
+    {tiles.map((t) => (
+      <polygon points={t.pts} class={t.off > 1 ? 'zero' : `tile o${t.off}`} style={`--d:${0.2 + t.k * 0.12}s`} />
+    ))}
+  </g>
+
+  <g class="sc sc3">
+    <line x1="22" y1={base} x2="72" y2={base} stroke-width="1.6" />
+    <text class="lb" x="78" y={base + 3}>S<tspan class="sub" dy="2">0</tspan></text>
+    {states.map((s, i) => (
+      <Fragment>
+        <line x1="22" y1={s.y} x2="72" y2={s.y} />
+        <text class="lb" x="78" y={s.y + 3}>S<tspan class="sub" dy="2">{i + 1}</tspan></text>
+        <line class="guide" style={`--d:${6.5 + i * 0.2}s`} x1="92" y1={s.y} x2={x0} y2={s.y} stroke-dasharray="2 3" />
+        <path class="ex" style={`--d:${6.1 + i * 0.2}s`} d={`M${32 + i * 13} ${base} V${s.y + 1} M${28 + i * 13} ${s.y + 6} L${32 + i * 13} ${s.y + 1} L${36 + i * 13} ${s.y + 6}`} />
+      </Fragment>
+    ))}
+    <line x1={x0} y1="18" x2={x0} y2={base} />
+    <path class="spec" d={curve} pathLength="1" />
+  </g>
+
+  <g class="sc sc2">
+    <g transform={`translate(110 75) scale(1.35) translate(0 ${-mid})`}>
+      <g class="dg" style="--d:3.1s">
+        {steps[0].map((d) => <path d={d} />)}
+        <line class="t2" x1={-vx} y1={bot} x2={vx} y2={bot} />
+        <circle class="vx" cx={-vx} cy={bot} r="1.6" /><circle class="vx" cx={vx} cy={bot} r="1.6" />
+      </g>
+      <g class="dg" style="--d:3.6s">{steps[1].map((d) => <path d={d} />)}</g>
+      <g class="dg" style="--d:4.1s">
+        <line class="vint" x1={-vx} y1={mid} x2={vx} y2={mid} stroke-dasharray="3 2.5" />
+        <circle class="vx" cx={-vx} cy={mid} r="1.6" /><circle class="vx" cx={vx} cy={mid} r="1.6" />
+        {steps[2].map((d) => <path d={d} />)}
+      </g>
+    </g>
+  </g>
+</svg>
+
+<style>
+  /* Scene 1 */
+  .o0 { fill: var(--accent); fill-opacity: 0.8; }
+  .o1 { fill: var(--accent); fill-opacity: 0.35; }
+  .zero { stroke-dasharray: 2 3; stroke-opacity: 0.5; }
+  /* Scene 3 (spectrum) */
+  .lb { font: italic 10px var(--font-math); fill: var(--text-strong); stroke: none; }
+  .sub { font-size: 7px; }
+  .ex { stroke: var(--accent); stroke-width: 1.4; transform-box: fill-box; transform-origin: bottom; }
+  .guide { stroke-opacity: 0.5; }
+  .spec { stroke: var(--accent); stroke-width: 1.5; }
+  /* Scene 2 (diagram) */
+  .dg path { stroke: var(--text-strong); stroke-width: 1; }
+  .vint { stroke: var(--accent); stroke-width: 1.3; }
+  .t2 { stroke: var(--accent); stroke-width: 2.6; }
+  .vx { fill: var(--text-strong); stroke: none; }
+
+  /* At rest only the tiles show; with reduced motion nothing cycles. */
+  .sc2, .sc3 { opacity: 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.play) .sc1 { animation: mq-sc1 9s linear; }
+    :global(.play) .sc2 { animation: mq-sc2 9s linear; }
+    :global(.play) .sc3 { animation: mq-sc3 9s linear; }
+    :global(.play) .tile { animation: mq-drop 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--d) backwards; }
+    :global(.play) .ex { animation: mq-up 0.45s cubic-bezier(0.16, 1, 0.3, 1) var(--d) backwards; }
+    :global(.play) .guide { animation: mq-in 0.3s ease-out var(--d) backwards; }
+    :global(.play) .spec { stroke-dasharray: 1; animation: mq-draw 1.1s ease-in-out 6.9s backwards; }
+    :global(.play) .dg { animation: mq-in 0.45s ease-out var(--d) backwards; }
+  }
+  @keyframes mq-sc1 { 0%, 28% { opacity: 1; } 33%, 92% { opacity: 0; } 97%, 100% { opacity: 1; } }
+  @keyframes mq-sc2 { 0%, 30% { opacity: 0; } 35%, 61% { opacity: 1; } 66%, 100% { opacity: 0; } }
+  @keyframes mq-sc3 { 0%, 63% { opacity: 0; } 68%, 92% { opacity: 1; } 97%, 100% { opacity: 0; } }
+  @keyframes mq-drop { from { opacity: 0; transform: translateY(-14px); } }
+  @keyframes mq-up { from { transform: scaleY(0); } }
+  @keyframes mq-in { from { opacity: 0; } }
+  @keyframes mq-draw { from { stroke-dashoffset: 1; } }
+</style>
