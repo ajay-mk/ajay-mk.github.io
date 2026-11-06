@@ -5,9 +5,10 @@
   --fs-label: 0.875rem;  /* 14px: hover cards */
   --fs-sm: 0.9375rem;    /* 15px: bullets and supporting text */
   --fs-base: 1rem;       /* 16px: body text */
-  --fs-h: 1.125rem;      /* 18px: section and card headings */
+  --fs-h: 1.125rem;      /* 18px: section headings */
+  --fs-lg: 1.25rem;      /* 20px: card titles */
   --fs-title: 1.75rem;   /* 28px: page titles */
-  --fs-name: 2rem;       /* 32px: name on the home page */
+  --fs-name: clamp(1.75rem, 1.2rem + 2.6vw, 2.5rem); /* 28-40px: name on the home page */
   --accent: #4d7c0f;
   --bg: #fafaf8;
   --surface: #ffffff;
@@ -48,18 +49,18 @@ body {
 
 a { color: var(--text-strong); text-decoration: none; }
 a:hover { color: var(--accent); }
+::selection { background: color-mix(in srgb, var(--accent) 28%, transparent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
 .container { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
 main { padding: 40px 0 72px; }
-
-.mono { font-family: var(--font-mono); }
 
 code { font-family: var(--font-mono); font-size: 0.85em; }
 
 h1, h2, h3 { color: var(--text-strong); line-height: 1.25; }
 
 /* Two-column section: label on the left, content on the right. */
-.section { display: grid; grid-template-columns: 200px 1fr; gap: 32px; padding: 32px 0; }
+.section { display: grid; grid-template-columns: 200px 1fr; gap: 32px; padding: 28px 0; }
 .section > h2 { font-size: var(--fs-h); font-weight: 600; }
 @media (max-width: 720px) {
   .container { padding: 0 20px; }
@@ -71,18 +72,34 @@ h1, h2, h3 { color: var(--text-strong); line-height: 1.25; }
 .entry:first-child { border-top: 0; padding-top: 0; }
 .entry .head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; }
 .entry .title { color: var(--text-strong); font-weight: 600; }
-.entry .when { color: var(--text-muted); font-family: var(--font-mono); font-size: var(--fs-xs); white-space: nowrap; }
+.entry .when { color: var(--text-muted); font-size: var(--fs-xs); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .entry .sub { color: var(--text-muted); font-size: var(--fs-sm); margin-top: 2px; }
 .entry .sub a { color: inherit; text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
 .entry .sub a:hover { color: var(--accent); }
 .entry ul { margin: 6px 0 0 18px; font-size: var(--fs-sm); }
 @media (max-width: 720px) { .entry .head { flex-direction: column; gap: 0; } }
 
-/* Used by the hidden blog/projects pages. */
-.prompt { font-family: var(--font-mono); color: var(--text-muted); font-size: var(--fs-sm); }
-.prompt b { color: var(--accent); }
-.page-title { font-size: var(--fs-title); font-weight: 600; margin: 6px 0 28px; }
+/* Used by the blog/projects pages. */
+.page-title { font-size: var(--fs-title); font-weight: 700; margin: 6px 0 28px; }
 .section-marker { font-size: var(--fs-base); color: var(--accent); margin: 28px 0 12px; }
 
-#theme-toggle::before { content: '\263E'; } /* ☾ switch to dark */
-html[data-theme='dark'] #theme-toggle::before { content: '\2600\FE0E'; } /* ☀ switch to light */
+/* Long-form Markdown: blog posts and project pages. */
+article .prose { max-width: 70ch; }
+.prose > * + * { margin-top: 16px; }
+.prose h2 { font-size: 1.375rem; font-weight: 650; margin-top: 40px; }
+.prose h3 { font-size: var(--fs-h); font-weight: 600; margin-top: 28px; }
+.prose :is(h2, h3) + * { margin-top: 10px; }
+.prose a { text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
+.prose :is(ul, ol) { padding-left: 1.4em; }
+.prose li + li { margin-top: 4px; }
+.prose li::marker { color: var(--text-muted); }
+.prose blockquote { border-left: 1px solid var(--border); padding-left: 16px; color: var(--text-muted); font-style: italic; }
+.prose pre { border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; overflow-x: auto; font-size: var(--fs-sm); line-height: 1.55; }
+.prose table { border-collapse: collapse; font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
+.prose :is(th, td) { text-align: left; padding: 8px 24px 8px 0; border-bottom: 1px solid var(--border); }
+.prose th { color: var(--text-strong); font-weight: 600; }
+
+/* Code highlighting follows the site theme (Shiki dual themes). */
+[data-theme='dark'] .astro-code, [data-theme='dark'] .astro-code span {
+  color: var(--shiki-dark) !important; background-color: var(--shiki-dark-bg) !important;
+}

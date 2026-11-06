@@ -1,21 +1,19 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Prompt from '../../components/Prompt.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const fmt = (d: Date) => d.toISOString().slice(0, 10);
 ---
-<Base title="blog">
-  <Prompt cmd="ls blog/ --sort=date" />
-  <h1 class="page-title">blog</h1>
+<Base title="Blog">
+  <h1 class="page-title">Blog</h1>
   {posts.length === 0 ? <p>No posts yet.</p> : (
     <ul class="posts">
       {posts.map((p) => (
         <li>
           <a href={`/blog/${p.id}/`}>{p.data.title}</a>
-          <div class="meta mono">{fmt(p.data.date)} · {p.data.tags.join(', ')}</div>
+          <div class="meta">{fmt(p.data.date)} · {p.data.tags.join(', ')}</div>
           <p class="desc">{p.data.description}</p>
         </li>
       ))}
@@ -28,6 +26,6 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
   .posts li { padding: 18px 0; border-top: 1px solid var(--border); }
   .posts a { font-size: 1.15rem; font-weight: 600; color: var(--text-strong); }
   .posts a:hover { color: var(--accent); }
-  .meta { color: var(--text-muted); font-size: 0.8rem; margin-top: 4px; }
+  .meta { color: var(--text-muted); font-size: var(--fs-xs); font-variant-numeric: tabular-nums; margin-top: 4px; }
   .desc { color: var(--text-muted); margin-top: 6px; }
 </style>

@@ -1,13 +1,17 @@
 ---
 import { site, nav } from '../config';
 import ThemeToggle from './ThemeToggle.astro';
+import { getCollection } from 'astro:content';
 const { pathname } = Astro.url;
+// Blog shows in the nav only once a published post exists.
+const hasPosts = (await getCollection('blog', ({ data }) => !data.draft)).length > 0;
+const items = hasPosts ? [...nav, { href: '/blog', label: 'Blog' }] : nav;
 ---
 
 <nav>
   <a class="brand" href="/">{site.name}</a>
   <ul>
-    {nav.map((item) => (
+    {items.map((item) => (
       <li><a class:list={['link', { active: pathname.startsWith(item.href) }]} href={item.href}>{item.label}</a></li>
     ))}
   </ul>
@@ -21,5 +25,10 @@ const { pathname } = Astro.url;
   .link { color: var(--text-muted); font-weight: 500; }
   .link:hover, .link.active { color: var(--text-strong); }
   .brand, .link { white-space: nowrap; }
-  @media (max-width: 480px) { nav, ul { gap: 14px; } nav { font-size: var(--fs-sm); } }
+  /* Phones: name on its own row, links and the toggle below it. */
+  @media (max-width: 480px) {
+    nav { flex-wrap: wrap; row-gap: 10px; font-size: var(--fs-sm); }
+    .brand { flex-basis: 100%; }
+    ul { gap: 18px; margin-right: auto; }
+  }
 </style>
