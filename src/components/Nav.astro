@@ -1,13 +1,17 @@
 ---
 import { site, nav } from '../config';
 import ThemeToggle from './ThemeToggle.astro';
+import { getCollection } from 'astro:content';
 const { pathname } = Astro.url;
+// Blog shows in the nav only once a published post exists.
+const hasPosts = (await getCollection('blog', ({ data }) => !data.draft)).length > 0;
+const items = hasPosts ? [...nav, { href: '/blog', label: 'Blog' }] : nav;
 ---
 
 <nav>
   <a class="brand" href="/">{site.name}</a>
   <ul>
-    {nav.map((item) => (
+    {items.map((item) => (
       <li><a class:list={['link', { active: pathname.startsWith(item.href) }]} href={item.href}>{item.label}</a></li>
     ))}
   </ul>
