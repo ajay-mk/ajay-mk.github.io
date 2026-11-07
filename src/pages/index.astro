@@ -120,7 +120,7 @@ const links = [
       {work.map((w) => {
         const r = w.repo && repos[w.repo];
         return (
-          <article class:list={['card', { linked: w.href }]}>
+          <article class="card">
             <div class="body">
               <h3>{w.href ? <a href={w.href} target="_blank" rel="noopener">{w.name}</a> : w.name}</h3>
               <div class="meta">{w.meta.split(' · ').map((m) => <span>{m}</span>)}</div>
@@ -249,7 +249,7 @@ const links = [
     background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
     transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s, border-color 0.25s;
   }
-  .card.linked:hover {
+  .card:hover {
     transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 10px 28px rgb(0 0 0 / 0.08);
   }
@@ -273,7 +273,7 @@ const links = [
   .repo a:hover { color: var(--accent); }
   .repo svg { width: 14px; height: 14px; }
   .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
-  @media (prefers-reduced-motion: reduce) { .card, .card h3 a { transition: none; } .card.linked:hover { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .card, .card h3 a { transition: none; } .card:hover { transform: none; } }
 
   .more { margin-top: 12px; font-size: var(--fs-sm); font-weight: 500; }
 
