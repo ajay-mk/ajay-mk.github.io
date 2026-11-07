@@ -26,28 +26,39 @@ const { sections } = Astro.props;
     const el = document.getElementById(id!);
     if (el) io.observe(el);
   }
+
+  // Dock-style magnification: each label grows with the pointer's closeness to its row.
+  const rail = document.querySelector<HTMLElement>('.rail');
+  if (rail && matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
+    const rows = [...links.values()] as HTMLElement[];
+    rail.addEventListener('pointermove', (e) => {
+      for (const a of rows) {
+        const r = a.getBoundingClientRect();
+        const d = Math.abs(e.clientY - (r.top + r.height / 2)) / r.height;
+        a.style.setProperty('--s', String(1 + 0.3 * Math.max(0, 1 - d / 2.5)));
+      }
+    });
+    rail.addEventListener('pointerleave', () => rows.forEach((a) => a.style.removeProperty('--s')));
+  }
 </script>
 
 <style>
   .rail {
     position: fixed; right: 24px; top: 50%; transform: translateY(-50%); z-index: 5;
-    display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+    display: flex; flex-direction: column;
   }
-  a { display: flex; align-items: center; gap: 10px; color: var(--text-muted); text-decoration: none; }
+  /* Full-width rows with padding instead of a gap, so the pointer never leaves a link while moving along the rail. */
+  a { display: flex; align-items: center; justify-content: flex-end; gap: 10px; padding: 5px 0; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
   .tick { width: 14px; height: 1.5px; background: currentColor; transition: width 0.2s, background 0.2s; }
   /* Labels sit on the page background so they stay readable if they overlap the content edge. */
   .lbl {
     font-size: var(--fs-tiny); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; font-variant-numeric: tabular-nums;
     background: var(--bg); padding: 2px 6px; border-radius: 4px;
-    opacity: 0; transform: translateX(6px); transform-origin: right center; transition: opacity 0.2s, transform 0.2s, scale 0.2s;
+    opacity: 0; transform: translateX(6px); transform-origin: right center; scale: var(--s, 1); transition: opacity 0.2s, transform 0.2s, scale 0.1s linear;
   }
   .num { opacity: 0.6; }
   .rail:hover .lbl, a:focus-visible .lbl { opacity: 1; transform: none; }
   a:hover, a[aria-current] { color: var(--text-strong); }
   a[aria-current] .tick { width: 26px; background: var(--accent); }
-  /* Dock-style magnification: the hovered label grows most, its neighbours less. */
-  a:has(+ a + a:hover) .lbl, a:hover + a + a .lbl { scale: 1.08; }
-  a:has(+ a:hover) .lbl, a:hover + a .lbl { scale: 1.18; }
-  a:hover .lbl { scale: 1.3; }
   @media (max-width: 1260px) { .rail { display: none; } }
 </style>
