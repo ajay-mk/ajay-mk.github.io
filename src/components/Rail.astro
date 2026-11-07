@@ -45,5 +45,9 @@ const { sections } = Astro.props;
   .rail:hover .lbl, a:focus-visible .lbl { opacity: 1; transform: none; }
   a:hover, a[aria-current] { color: var(--text-strong); }
   a[aria-current] .tick { width: 26px; background: var(--accent); }
+  /* Dock-style magnification: the hovered tick grows most, its neighbours less. */
+  a:not([aria-current]):has(+ a + a:hover) .tick, a:hover + a + a:not([aria-current]) .tick { width: 17px; }
+  a:not([aria-current]):has(+ a:hover) .tick, a:hover + a:not([aria-current]) .tick { width: 21px; }
+  a:hover .tick { width: 26px; }
   @media (max-width: 1260px) { .rail { display: none; } }
 </style>
