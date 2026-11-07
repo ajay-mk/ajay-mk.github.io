@@ -39,11 +39,15 @@ const { sections } = Astro.props;
   .lbl {
     font-size: var(--fs-tiny); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; font-variant-numeric: tabular-nums;
     background: var(--bg); padding: 2px 6px; border-radius: 4px;
-    opacity: 0; transform: translateX(6px); transition: opacity 0.2s, transform 0.2s;
+    opacity: 0; transform: translateX(6px); transform-origin: right center; transition: opacity 0.2s, transform 0.2s, scale 0.2s;
   }
   .num { opacity: 0.6; }
   .rail:hover .lbl, a:focus-visible .lbl { opacity: 1; transform: none; }
   a:hover, a[aria-current] { color: var(--text-strong); }
   a[aria-current] .tick { width: 26px; background: var(--accent); }
+  /* Dock-style magnification: the hovered label grows most, its neighbours less. */
+  a:has(+ a + a:hover) .lbl, a:hover + a + a .lbl { scale: 1.08; }
+  a:has(+ a:hover) .lbl, a:hover + a .lbl { scale: 1.18; }
+  a:hover .lbl { scale: 1.3; }
   @media (max-width: 1260px) { .rail { display: none; } }
 </style>
